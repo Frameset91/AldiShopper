@@ -3,6 +3,10 @@
 
     <string name="app_name">AldiShopper</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="hello_world">Hallo Busch</string>
+=======
+    <string name="hello_world">Hallo Quarkquark</string>
+>>>>>>> yeah
 
 </resources>
