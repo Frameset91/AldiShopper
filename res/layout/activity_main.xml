@@ -20,19 +20,22 @@
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Neue Korbware" />
+        android:text="@string/main_new"
+        android:onClick="openNewcart" />
 
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Aktueller Warenkorb" />
+        android:text="@string/main_active"
+        android:onClick="openActivecart" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Einstellungen" />
+        android:text="@string/main_options"
+        android:onClick="openOptions" />
 
 </LinearLayout>

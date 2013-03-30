@@ -22,6 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="de.aldi.shopper.Newcart"
+            android:label="@string/title_activity_newcart" >
+        </activity>
+        <activity
+            android:name="de.aldi.shopper.Activecart"
+            android:label="@string/title_activity_activecart" >
+        </activity>
+        <activity
+            android:name="de.aldi.shopper.Options"
+            android:label="@string/title_activity_options" >
+        </activity>
     </application>
 
 </manifest>

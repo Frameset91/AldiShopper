@@ -4,4 +4,14 @@
     <string name="app_name">AldiShopper</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hallo Busch</string>
+    <string name="main_new">Neuer Warenkorb</string>
+    <string name="main_active">Aktueller Warenkorb</string>
+    <string name="main_options">Einstellungen</string>
+    <string name="title_activity_newcart">Newcart</string>
+    <string name="newcart_hello">Neuen Warenkorb anlegen</string>
+    <string name="title_activity_activecart">Activecart</string>
+    <string name="activecart_hello">Aktuellen Warenkorb anzeigen</string>
+    <string name="title_activity_options">Options</string>
+    <string name="options_hello">Einstellungen tätigen</string>
+
 </resources>
