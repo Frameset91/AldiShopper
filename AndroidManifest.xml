@@ -38,6 +38,10 @@
             android:name="de.aldi.shopper.Noratest"
             android:label="@string/title_activity_noratest" >
         </activity>
+        <activity
+            android:name="de.aldi.shopper.ManualList"
+            android:label="@string/title_activity_manual_list" >
+        </activity>
     </application>
 
 </manifest>

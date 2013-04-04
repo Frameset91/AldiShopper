@@ -36,4 +36,9 @@ public class MainActivity extends Activity {
     	Intent options = new Intent(this, Options.class);
     	startActivity(options);
     }
+    
+    public void openManualList(View view){
+    	Intent manuallist = new Intent(this, ManualList.class);
+    	startActivity(manuallist);
+    }
 }
