@@ -45,6 +45,10 @@
         <activity
             android:name="de.aldi.shopper.GetDataTest"
             android:label="@string/title_activity_get_data_test" >
+		</activity>
+		<activity
+            android:name="de.aldi.shopper.ProceedToCheckout"
+            android:label="@string/title_activity_proceed_to_checkout" >
         </activity>
     </application>
 

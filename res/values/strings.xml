@@ -20,5 +20,5 @@
 
     <string name="main_manuallist">Einkaufsliste anlegen</string>
     <string name="title_activity_get_data_test">GetDataTest</string>
-
+    <string name="title_activity_proceed_to_checkout">ProceedToCheckout</string>
 </resources>

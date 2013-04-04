@@ -25,10 +25,11 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btnDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="fertig" />
+            android:text="fertig"
+            android:onClick="onProceed"/>
     </LinearLayout>
 
 </LinearLayout>

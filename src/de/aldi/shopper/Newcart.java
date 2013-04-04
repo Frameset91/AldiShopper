@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ExpandableListActivity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -77,6 +78,11 @@ public class Newcart extends ExpandableListActivity {
         //if( cb != null )
         //   cb.toggle();
         return false;
+    }
+    
+    public void onProceed(View view){
+    	Intent proceed = new Intent(this, ProceedToCheckout.class);
+    	startActivity(proceed);
     }
     
 
