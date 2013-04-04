@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/childname"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minLines="2"
+            android:paddingLeft="40dip"
+            android:text="Product Name" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:orientation="horizontal"
+            android:paddingLeft="40dip" >
+
+            <TextView
+                android:id="@+id/unit"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Unit" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Price" />
+
+            <!--
+        Checkbox wird für den Mitarbeiter benötigt!
+        <CheckBox
+            android:id="@+id/check1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false" />
+            -->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--
+    <EditText
+        android:id="@+id/quantity"
+        android:layout_width="50dip"
+        android:layout_height="fill_parent"
+        android:focusableInTouchMode="false"
+        android:text="2" > 
+
+    </EditText>
+    -->
+
+            <NumberPicker
+                android:id="@+id/quantity"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:orientation="vertical" />
+
+</LinearLayout>
