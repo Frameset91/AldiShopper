@@ -41,4 +41,10 @@ public class MainActivity extends Activity {
     	Intent manuallist = new Intent(this, ManualList.class);
     	startActivity(manuallist);
     }
+    
+    public void openData(View view){
+    	Intent data = new Intent(this, GetDataTest.class);
+    	startActivity(data);
+    }
+    
 }

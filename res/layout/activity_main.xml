@@ -38,11 +38,18 @@
         android:layout_height="wrap_content"
         android:text="@string/main_options"
         android:onClick="openOptions" />
-        <Button
+    <Button
         android:id="@+id/button5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_manuallist"
         android:onClick="openManualList" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DATA!"
+        android:onClick="openData" />
 
 </LinearLayout>

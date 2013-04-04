@@ -15,8 +15,10 @@
     <string name="options_hello">Einstellungen tätigen</string>
     <string name="title_activity_noratest">Noratest</string>
     <string name="title_activity_manual_list">ManualList</string>
-    <string-array name="shopping_list">
-    </string-array>
+
+    <string-array name="shopping_list"></string-array>
+
     <string name="main_manuallist">Einkaufsliste anlegen</string>
+    <string name="title_activity_get_data_test">GetDataTest</string>
 
 </resources>
