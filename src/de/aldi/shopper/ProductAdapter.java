@@ -55,6 +55,10 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		TextView price = (TextView) v.findViewById(R.id.price);
 		if (price != null)
 			price.setText(prod.getPrice() + " €");
+		TextView descr = (TextView) v.findViewById(R.id.description);
+		if (descr != null)
+			descr.setText(prod.getDescription());
+		
 		NumberPicker quantity = (NumberPicker) v.findViewById(R.id.quantity);
 		quantity.setMinValue(0); quantity.setMaxValue(40);
 		//if (quantity != null){

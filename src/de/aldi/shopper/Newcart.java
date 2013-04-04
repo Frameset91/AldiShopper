@@ -33,19 +33,19 @@ public class Newcart extends ExpandableListActivity {
         
         product = new ArrayList<Product>();
         // 1. Kindgruppe
-        product.add( new Product(33, 3, "ALPENMARK Reibekäse", "Lorem ipsum dolor sit amet", "200g", 1.19, 1, false)); 
+        product.add( new Product(33, 3, "ALPENMARK Reibekäse", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet", "200g", 1.19, 1, false)); 
         comGroups.add(product);
         
         //2. Kindgruppe
         product = new ArrayList<Product>();
         product.add( new Product(1, 2, "KNUSPERONE Honey Wheat","Lorem ipsum dolor sit amet", "750g", 1.99, 0, false)); 
-        product.add( new Product(27, 1, "AMAROY Premium Röstkaffee Extra Gemahlen", "Lorem ipsum dolor sit amet","500g", 2.99, 2, false));
+        product.add( new Product(27, 1, "KNUSPERONE Nougat Bits", "Lorem ipsum dolor sit amet","500g", 1.99, 2, false));
         comGroups.add(product);
         
         //3. Kindgruppe
         product = new ArrayList<Product>();
-        product.add( new Product(33, 3, "ALPENMARK Reibekäse", "Lorem ipsum dolor sit amet", "200g", 1.19, 4, false)); 
-        product.add( new Product(1, 2, "KNUSPERONE Honey Wheat","Lorem ipsum dolor sit amet", "750g", 1.99, 5, false)); 
+        product.add( new Product(33, 1, "AMAROY Premium Röstkaffee Extra Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.59, 4, false)); 
+        product.add( new Product(1, 2, "AMAROY Premium Röstkaffee Entkoffeiniert Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.99, 5, false)); 
         product.add( new Product(27, 1, "AMAROY Premium Röstkaffee Extra Gemahlen", "Lorem ipsum dolor sit amet","500g", 2.99, 3, false));
         comGroups.add(product);
 
