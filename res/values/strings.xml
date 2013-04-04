@@ -13,5 +13,6 @@
     <string name="activecart_hello">Aktuellen Warenkorb anzeigen</string>
     <string name="title_activity_options">Options</string>
     <string name="options_hello">Einstellungen tätigen</string>
+    <string name="title_activity_noratest">Noratest</string>
 
 </resources>
