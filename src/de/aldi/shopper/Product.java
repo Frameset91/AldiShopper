@@ -1,3 +1,6 @@
+/**
+ * Klasse, die den Aufbau der Produkte definiert
+ */
 package de.aldi.shopper;
 
 public class Product {

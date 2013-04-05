@@ -53,7 +53,7 @@ public class Newcart extends ExpandableListActivity{
 
 		catalog = new ProductAdapter(this,comGroupsList, comGroups);
 		setListAdapter( catalog );
-		NumberPicker quantPick = (NumberPicker) findViewById(R.id.quantity);
+		
     }
 
     public void onContentChanged  () {

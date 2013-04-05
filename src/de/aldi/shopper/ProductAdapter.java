@@ -57,7 +57,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		if (descr != null)
 			descr.setText(prod.getDescription());
 		NumberPicker numPickQuantity = (NumberPicker) v.findViewById(R.id.quantity);
-		numPickQuantity.setMinValue(0); numPickQuantity.setMaxValue(40);		
+		numPickQuantity.setMinValue(0); numPickQuantity.setMaxValue(40);
 
 		// CheckBox cb = (CheckBox)v.findViewById( R.id.check1 );
 		// cb.setChecked( c.getState() );
@@ -89,9 +89,9 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		else
 			v = inflater.inflate(R.layout.explist_group, parent, false);
 		String gt = (String) getGroup(groupPosition);
-		TextView colorGroup = (TextView) v.findViewById(R.id.groupname);
+		TextView comGroup = (TextView) v.findViewById(R.id.groupname);
 		if (gt != null)
-			colorGroup.setText(gt);
+			comGroup.setText(gt);
 		return v;
 	}
 
