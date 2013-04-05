@@ -11,24 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 public class ProductAdapter extends BaseExpandableListAdapter {
 
-	private ArrayList<String> comGroup;
-	private ArrayList<ArrayList<Product>> products;
+	private ArrayList<String> comGroupsList;
+	private ArrayList<ArrayList<Product>> comGroups;
 	private LayoutInflater inflater;
 
-	public ProductAdapter(Context context, ArrayList<String> groups, ArrayList<ArrayList<Product>> products) {
-		this.comGroup = groups;
-		this.products = products;
+	public ProductAdapter(Context context, ArrayList<String> comGroupsList, ArrayList<ArrayList<Product>> comGroups) {
+		this.comGroupsList = comGroupsList;
+		this.comGroups = comGroups;
 		inflater = LayoutInflater.from(context);
 	}
 
 	public Product getChild(int groupPosition, int childPosition) {
-		return products.get(groupPosition).get(childPosition);
+		return comGroups.get(groupPosition).get(childPosition);
 	}
 
 	public long getChildId(int groupPosition, int childPosition) {
@@ -36,8 +35,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 															// per group
 	}
 
-	public View getChildView(int groupPosition, int childPosition,
-			boolean isLastChild, View convertView, ViewGroup parent) {
+	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 		View v = null;
 		if (convertView != null)
 			v = convertView;
@@ -58,27 +56,25 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		TextView descr = (TextView) v.findViewById(R.id.description);
 		if (descr != null)
 			descr.setText(prod.getDescription());
-		
-		NumberPicker quantity = (NumberPicker) v.findViewById(R.id.quantity);
-		quantity.setMinValue(0); quantity.setMaxValue(40);
-		//if (quantity != null){
-		//	quantity.setValue(prod.getQuantity());
-		//	}
+		NumberPicker numPickQuantity = (NumberPicker) v.findViewById(R.id.quantity);
+		numPickQuantity.setMinValue(0); numPickQuantity.setMaxValue(40);		
+
 		// CheckBox cb = (CheckBox)v.findViewById( R.id.check1 );
 		// cb.setChecked( c.getState() );
 		return v;
 	}
+	
 
 	public int getChildrenCount(int groupPosition) {
-		return products.get(groupPosition).size();
+		return comGroups.get(groupPosition).size();
 	}
 
 	public Object getGroup(int groupPosition) {
-		return comGroup.get(groupPosition);
+		return comGroupsList.get(groupPosition);
 	}
 
 	public int getGroupCount() {
-		return comGroup.size();
+		return comGroupsList.size();
 	}
 
 	public long getGroupId(int groupPosition) {
@@ -112,5 +108,6 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 
 	public void onGroupExpanded(int groupPosition) {
 	}
+
 
 }
