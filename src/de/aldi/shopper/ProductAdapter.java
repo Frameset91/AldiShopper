@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
 public class ProductAdapter extends BaseExpandableListAdapter {
@@ -25,6 +26,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		this.comGroups = comGroups;
 		inflater = LayoutInflater.from(context);
 	}
+	
 
 	public Product getChild(int groupPosition, int childPosition) {
 		return comGroups.get(groupPosition).get(childPosition);
@@ -42,7 +44,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		else
 			v = inflater.inflate(R.layout.explist_child, parent, false);
 
-		Product prod = (Product) getChild(groupPosition, childPosition);
+		final Product prod = (Product) getChild(groupPosition, childPosition);
 		
 		TextView name = (TextView) v.findViewById(R.id.childname);
 		if (name != null)
@@ -50,18 +52,31 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		TextView unit = (TextView) v.findViewById(R.id.unit);
 		if (unit != null)
 			unit.setText(prod.getUnit());
-		TextView price = (TextView) v.findViewById(R.id.price);
+		final TextView price = (TextView) v.findViewById(R.id.price);
 		if (price != null)
 			price.setText(prod.getPrice() + " €");
 		TextView descr = (TextView) v.findViewById(R.id.description);
 		if (descr != null)
 			descr.setText(prod.getDescription());
-		NumberPicker numPickQuantity = (NumberPicker) v.findViewById(R.id.quantity);
+		final NumberPicker numPickQuantity = (NumberPicker) v.findViewById(R.id.quantity);
 		numPickQuantity.setMinValue(0); numPickQuantity.setMaxValue(40);
+		
+		numPickQuantity.setOnValueChangedListener(new OnValueChangeListener() {			
+			@Override
+			public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+				int quantity = numPickQuantity.getValue();
+				CartHelper.setQuantity(prod, quantity);
+				System.out.println(prod.getName() + " wurde gewählt, Menge: " + quantity+"\n in CartHelper gespeichert");
+			}
+		});
 
 		// CheckBox cb = (CheckBox)v.findViewById( R.id.check1 );
 		// cb.setChecked( c.getState() );
 		return v;
+	}
+	
+	public NumberPicker getQuantPicker(int groupPosition, int childPosition){
+		return comGroups.get(groupPosition).get(childPosition).quantityPicker;
 	}
 	
 
@@ -76,7 +91,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 	public int getGroupCount() {
 		return comGroupsList.size();
 	}
-
+	
 	public long getGroupId(int groupPosition) {
 		return (long) (groupPosition * 50); // To be consistent with getChildId
 	}

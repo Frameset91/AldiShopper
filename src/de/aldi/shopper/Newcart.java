@@ -8,12 +8,12 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.NumberPicker;
+import android.widget.TextView;
 
 
 public class Newcart extends ExpandableListActivity{
 	
-    private ProductAdapter catalog;
+    private ProductAdapter prodAdapterCatalog;
     private ArrayList<String> comGroupsList;
     ArrayList<ArrayList<Product>> comGroups;
     ExpandableListView expListCatalog;
@@ -35,24 +35,25 @@ public class Newcart extends ExpandableListActivity{
         
         product = new ArrayList<Product>(); //Produktliste für jeweils eine Warengruppe
         // 1. Kindgruppe
-        product.add( new Product(33, 3, "ALPENMARK Reibekäse", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet", "200g", 1.19, 0,  false)); 
+        product.add( new Product(33, 3, "ALPENMARK Reibekäse", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet", "200g", 1.19, false)); 
         comGroups.add(product);
         
         //2. Kindgruppe
         product = new ArrayList<Product>();
-        product.add( new Product(1, 2, "KNUSPERONE Honey Wheat","Lorem ipsum dolor sit amet", "750g", 1.99, 1, false)); 
-        product.add( new Product(27, 1, "KNUSPERONE Nougat Bits", "Lorem ipsum dolor sit amet","500g", 1.99, 2, false));
+        product.add( new Product(1, 2, "KNUSPERONE Honey Wheat","Lorem ipsum dolor sit amet", "750g", 1.99, false)); 
+        product.add( new Product(27, 1, "KNUSPERONE Nougat Bits", "Lorem ipsum dolor sit amet","500g", 1.99, false));
         comGroups.add(product);
         
         //3. Kindgruppe
         product = new ArrayList<Product>();
-        product.add( new Product(33, 1, "AMAROY Premium Röstkaffee Extra Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.59, 3, false)); 
-        product.add( new Product(1, 2, "AMAROY Premium Röstkaffee Entkoffeiniert Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.99, 4, false)); 
-        product.add( new Product(27, 1, "AMAROY Premium Röstkaffee Extra Gemahlen", "Lorem ipsum dolor sit amet","500g", 2.99, 5, false));
+        product.add( new Product(33, 1, "AMAROY Premium Röstkaffee Extra Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.59, false)); 
+        product.add( new Product(1, 2, "AMAROY Premium Röstkaffee Entkoffeiniert Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.99, false)); 
+        product.add( new Product(27, 1, "AMAROY Premium Röstkaffee Extra Gemahlen", "Lorem ipsum dolor sit amet","500g", 2.99, false));
         comGroups.add(product);
 
-		catalog = new ProductAdapter(this,comGroupsList, comGroups);
-		setListAdapter( catalog );
+		prodAdapterCatalog = new ProductAdapter(this,comGroupsList, comGroups);
+		setListAdapter( prodAdapterCatalog );
+		
 		
     }
 
@@ -60,28 +61,30 @@ public class Newcart extends ExpandableListActivity{
         super.onContentChanged();
     }
     
+    
 //	muss ersetzt werden: Anzeigen der Zwischensumme
-//    @Override
-//    public  boolean onChildClick(ExpandableListView parent, View v, int groupPosition,int childPosition, long id) {
-//        System.out.println("auf Kind geklickt: " + groupPosition + ", " + childPosition);
-//        
+    @Override
+    public  boolean onChildClick(ExpandableListView parent, View v, int groupPosition,int childPosition, long id) {
+        System.out.println("auf Kind geklickt: " + groupPosition + ", " + childPosition);
+        
 //        Product curProd = catalog.getChild(groupPosition, childPosition);
 //        double subTotal = curProd.getPrice();
-//        
-//        //Zwischensumme
-//        //double subTotal = 0;
-//        //for (Product p : comGroups.get(childPosition)){
-//        //	double prodPrice = p.getPrice();
-//        //	subTotal = p.price; //* quantity
-//        //	}
-//        
-//        TextView prodprice = (TextView)findViewById(R.id.Subtotal);
-//        prodprice.setText("Zwischensumme: " + subTotal + "€");
-//        //CheckBox cb = (CheckBox)v.findViewById( R.id.check1 );
-//        //if( cb != null )
-//        //   cb.toggle();
-//        return false;
-//    }
+        
+       // Zwischensumme
+        double subTotal = 0;
+        for (Product p : comGroups.get(childPosition)){
+        	double prodPrice = p.getPrice();
+        	subTotal = prodPrice * p.getQuantPicker().getValue();
+        	}
+        
+        TextView prodprice = (TextView)findViewById(R.id.Subtotal);
+        prodprice.setText("Zwischensumme: " + subTotal + "€");
+        System.out.println(("Zwischensumme: " + subTotal + "€"));
+        //CheckBox cb = (CheckBox)v.findViewById( R.id.check1 );
+        //if( cb != null )
+        //   cb.toggle();
+        return false;
+    }
     
 
     public void onProceed(View view){
@@ -96,5 +99,6 @@ public class Newcart extends ExpandableListActivity{
 		getMenuInflater().inflate(R.menu.newcart, menu);
 		return true;
 	}
+
 
 }

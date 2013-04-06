@@ -3,6 +3,8 @@
  */
 package de.aldi.shopper;
 
+import android.widget.NumberPicker;
+
 public class Product {
     
 	public int productID;
@@ -11,17 +13,17 @@ public class Product {
 	public String description;
 	public String unit;
 	public double price;
-	public int quantity;
+	//public int quantity;
+	public NumberPicker quantityPicker;
 	//public boolean selected = false;
 
-    public Product( int productID, int categoryID, String name, String description, String unit, double price, int quantity, boolean selected) {
+    public Product( int productID, int categoryID, String name, String description, String unit, double price, boolean selected) {
 		this.productID = productID;
 		this.categoryID = categoryID;
 		this.name = name;
 		this.description = description;
 		this.unit = unit;
 		this.price = price;
-		this.quantity = quantity;
 		//this.selected = selected;
     }
 
@@ -41,9 +43,15 @@ public class Product {
     	return description;
     }
     
-    public int getQuantity(){
-    	return quantity;
+    public NumberPicker getQuantPicker(){
+    	return quantityPicker;
     }
+//    public int getQuantity(){
+//    	Integer q = quantityPicker.getValue();
+//    	if(q == null)
+//    		quantityPicker.setValue(0);
+//    	return quantityPicker.getValue();
+//    }
     
 
 //    public boolean getState() {
