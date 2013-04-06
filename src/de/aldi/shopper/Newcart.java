@@ -35,20 +35,20 @@ public class Newcart extends ExpandableListActivity{
         
         product = new ArrayList<Product>(); //Produktliste für jeweils eine Warengruppe
         // 1. Kindgruppe
-        product.add( new Product(33, 3, "ALPENMARK Reibekäse", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet", "200g", 1.19, false)); 
+        product.add( new Product(1, 1, "ALPENMARK Reibekäse", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet", "200g", 1.19, false)); 
         comGroups.add(product);
         
         //2. Kindgruppe
         product = new ArrayList<Product>();
-        product.add( new Product(1, 2, "KNUSPERONE Honey Wheat","Lorem ipsum dolor sit amet", "750g", 1.99, false)); 
-        product.add( new Product(27, 1, "KNUSPERONE Nougat Bits", "Lorem ipsum dolor sit amet","500g", 1.99, false));
+        product.add( new Product(2, 2, "KNUSPERONE Honey Wheat","Lorem ipsum dolor sit amet", "750g", 1.99, false)); 
+        product.add( new Product(3, 3, "KNUSPERONE Nougat Bits", "Lorem ipsum dolor sit amet","500g", 1.99, false));
         comGroups.add(product);
         
         //3. Kindgruppe
         product = new ArrayList<Product>();
-        product.add( new Product(33, 1, "AMAROY Premium Röstkaffee Extra Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.59, false)); 
-        product.add( new Product(1, 2, "AMAROY Premium Röstkaffee Entkoffeiniert Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.99, false)); 
-        product.add( new Product(27, 1, "AMAROY Premium Röstkaffee Extra Gemahlen", "Lorem ipsum dolor sit amet","500g", 2.99, false));
+        product.add( new Product(4, 4, "AMAROY Premium Röstkaffee Extra Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.59, false)); 
+        //product.add( new Product(5, 5, "AMAROY Premium Röstkaffee Entkoffeiniert Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.99, false)); 
+        product.add( new Product(6, 6, "AMAROY Premium Röstkaffee Extra Gemahlen", "Lorem ipsum dolor sit amet","500g", 2.99, false));
         comGroups.add(product);
 
 		prodAdapterCatalog = new ProductAdapter(this,comGroupsList, comGroups);
@@ -92,6 +92,11 @@ public class Newcart extends ExpandableListActivity{
     	startActivity(proceed);
     }
     
+    @Override
+    public void onBackPressed() {
+    	CartHelper.removeAll();
+    	finish();
+    } 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

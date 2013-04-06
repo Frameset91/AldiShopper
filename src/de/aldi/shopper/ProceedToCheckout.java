@@ -1,5 +1,6 @@
 package de.aldi.shopper;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import android.app.Activity;
@@ -42,7 +43,8 @@ public class ProceedToCheckout extends Activity {
 	  }
 	  
 	  TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
-	  productPriceTextView.setText("Summe: " + subTotal + "€");
+	  DecimalFormat f = new DecimalFormat("#0.00");
+	  productPriceTextView.setText("Summe: " + f.format(subTotal) + "€");
 	 }
 
 

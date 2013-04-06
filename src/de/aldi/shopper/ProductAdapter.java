@@ -60,6 +60,9 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 			descr.setText(prod.getDescription());
 		final NumberPicker numPickQuantity = (NumberPicker) v.findViewById(R.id.quantity);
 		numPickQuantity.setMinValue(0); numPickQuantity.setMaxValue(40);
+		if(CartHelper.getCartList().contains(prod) == true)
+			numPickQuantity.setValue(CartHelper.getProductQuantity(prod));
+		else numPickQuantity.setValue(0);
 		
 		numPickQuantity.setOnValueChangedListener(new OnValueChangeListener() {			
 			@Override

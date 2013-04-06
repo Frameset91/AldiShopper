@@ -51,5 +51,9 @@ public class CartHelper {
 		}
 		return cartList;
 	}
+	
+	public static void removeAll(){
+		cartMap.clear();
+	}
 
 }
