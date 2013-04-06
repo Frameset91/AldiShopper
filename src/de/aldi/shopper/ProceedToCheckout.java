@@ -4,13 +4,15 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class ProceedToCheckout extends Activity {
-	
+
 	private List<Product> cartList;
 	private CartAdapter cartAdapter;
 
@@ -18,35 +20,38 @@ public class ProceedToCheckout extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_proceed_to_checkout);
-		
+
 		cartList = CartHelper.getCartList();
-		
+
 		ListView listViewCatalog = (ListView) findViewById(R.id.cartList);
 		cartAdapter = new CartAdapter(cartList, getLayoutInflater());
 		listViewCatalog.setAdapter(cartAdapter);
 	}
-	
-	 
-	 @Override
-	 protected void onResume() {
-	  super.onResume();
-	  
-	  // Daten aktualisieren
-	  if(cartAdapter != null) {
-	   cartAdapter.notifyDataSetChanged();
-	  }
-	  
-	  double subTotal = 0;
-	  for(Product p : cartList) {
-	   int quantity = CartHelper.getProductQuantity(p);
-	   subTotal += p.price * quantity;
-	  }
-	  
-	  TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
-	  DecimalFormat f = new DecimalFormat("#0.00");
-	  productPriceTextView.setText("Summe: " + f.format(subTotal) + "€");
-	 }
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		// Daten aktualisieren
+		if (cartAdapter != null) {
+			cartAdapter.notifyDataSetChanged();
+		}
+
+		double subTotal = 0;
+		for (Product p : cartList) {
+			int quantity = CartHelper.getProductQuantity(p);
+			subTotal += p.price * quantity;
+		}
+
+		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
+		DecimalFormat f = new DecimalFormat("#0.00");
+		productPriceTextView.setText("Summe: " + f.format(subTotal) + "€");
+	}
+
+	public void onCheckout(View view) {
+		Intent checkout = new Intent(this, Checkout.class);
+		startActivity(checkout);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
