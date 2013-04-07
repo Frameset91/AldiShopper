@@ -2,6 +2,7 @@ package de.aldi.shopper;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.widget.TextView;
 import de.aldi.shopper.Options;
@@ -13,12 +14,13 @@ public class Checkout extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
 		
-		Options name = new Options();
+		SharedPreferences userData = this.getSharedPreferences("userData", MODE_PRIVATE);
 		TextView fName = (TextView)findViewById(R.id.textView2);
-		TextView LName = (TextView)findViewById(R.id.textView1);
+		TextView lName = (TextView)findViewById(R.id.textView1);
 		
-		fName.setText(name.getFirstname());
-		LName.setText(name.getLastname());
+		fName.setText(userData.getString("firstname", ""));
+		lName.setText(userData.getString("lastname", ""));
+
 	}
 
 	@Override

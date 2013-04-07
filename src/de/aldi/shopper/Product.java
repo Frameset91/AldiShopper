@@ -3,9 +3,11 @@
  */
 package de.aldi.shopper;
 
+import java.io.Serializable;
+
 import android.widget.NumberPicker;
 
-public class Product {
+public class Product implements Serializable{
     
 	public int productID;
 	public int categoryID;

@@ -1,17 +1,43 @@
 package de.aldi.shopper;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
+	private SharedPreferences userData; //Zur Speicherung des Vor- und Nachnamens
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        
+        userData = this.getSharedPreferences("userData", MODE_PRIVATE);
+        if(userData.getString("firstname", null) != null)	// Wenn bereits die Namen gespeichert wurden, Main aufrufen
+        	setContentView(R.layout.activity_main);
+        else {												// Wenn noch nichts eingegeben, erst Optionen aufrufen
+        	setContentView(R.layout.activity_options);
+        	final EditText firstname = (EditText) findViewById(R.id.fistname);
+        	final EditText lastname = (EditText) findViewById(R.id.lastname);
+        	Button btnSave = (Button) findViewById(R.id.saveSettings);
+        	
+        	btnSave.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {				// Abspeichern der Namen
+					SharedPreferences.Editor userDataEditor = userData.edit();
+					userDataEditor.putString("firstname", firstname.getText().toString());
+					userDataEditor.putString("lastname", lastname.getText().toString());
+					userDataEditor.commit();
+					setContentView(R.layout.activity_main);
+				}
+			});
+        }
     }
 
 

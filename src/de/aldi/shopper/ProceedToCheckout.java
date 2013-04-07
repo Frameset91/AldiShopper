@@ -1,5 +1,10 @@
 package de.aldi.shopper;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -10,6 +15,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProceedToCheckout extends Activity {
 
@@ -51,6 +57,26 @@ public class ProceedToCheckout extends Activity {
 	public void onCheckout(View view) {
 		Intent checkout = new Intent(this, Checkout.class);
 		startActivity(checkout);
+	}
+
+	public void onSaveCart(View view) {
+		String fileName = "activeCart";
+		FileOutputStream fileOutput = null;
+		ObjectOutputStream objectOutput = null;
+
+		try {
+			fileOutput = this.openFileOutput(fileName, MODE_PRIVATE);
+			objectOutput = new ObjectOutputStream(fileOutput);
+			objectOutput.writeObject(cartList);
+			Toast.makeText(this, "Einkaufswagen gespeichert", Toast.LENGTH_SHORT)
+					.show();
+		} catch (FileNotFoundException e) {
+			Toast.makeText(this, "Datei nicht gefunden", Toast.LENGTH_SHORT).show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override

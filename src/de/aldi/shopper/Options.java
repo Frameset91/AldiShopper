@@ -1,42 +1,47 @@
 package de.aldi.shopper;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Options extends Activity {
-
-	public static String firstname;
-	public static String lastname;
+	
+	private SharedPreferences userData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_options);
+		userData = this.getSharedPreferences("userData", MODE_PRIVATE);
+		EditText fName = (EditText) findViewById(R.id.fistname);
+		EditText lName = (EditText) findViewById(R.id.lastname);
+		fName.setText(userData.getString("firstname", ""));
+		lName.setText(userData.getString("lastname", ""));
 	}
 
 	public void onSaveSettings(View view) {
 		EditText fName = (EditText) findViewById(R.id.fistname);
 		EditText lName = (EditText) findViewById(R.id.lastname);
-		firstname = fName.getText().toString();
-		lastname = lName.getText().toString();
-	}
-
-	public String getFirstname() {
-		if (firstname == null) {
-			return "nicht eingegeben";
+		if(fName.getText().toString().matches("")|| lName.getText().toString().matches("")){
+			Toast setData = Toast.makeText(this, "Bitte geben Sie ihre Daten ein!", Toast.LENGTH_SHORT);
+			setData.setGravity(Gravity.CENTER, 0, 0);
+			setData.show();
 		}
-		return firstname;
-	}
-
-	public String getLastname() {
-		if (firstname == null) {
-			return "nicht eingegeben";
+		else{
+			SharedPreferences.Editor userDataEditor = userData.edit();
+			userDataEditor.putString("firstname", fName.getText().toString());
+			userDataEditor.putString("lastname", lName.getText().toString());
+			userDataEditor.apply();
+			Intent backToStart = new Intent(this, MainActivity.class);
+			startActivity(backToStart);
+			}
 		}
-		return lastname;
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -7,14 +7,21 @@
     <ListView
         android:id="@+id/cartList"
         android:layout_width="fill_parent"
-		android:layout_height="0dip"
-        android:layout_weight="1">
+        android:layout_height="0dip"
+        android:layout_weight="1" >
     </ListView>
-    
-        <LinearLayout
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Speichern"
+            android:onClick="onSaveCart" />
 
         <TextView
             android:id="@+id/Subtotal"
@@ -29,8 +36,8 @@
             android:id="@+id/btnDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="fertig"
-            android:onClick="onCheckout"/>
+            android:onClick="onCheckout"
+            android:text="fertig" />
     </LinearLayout>
 
 </LinearLayout>
