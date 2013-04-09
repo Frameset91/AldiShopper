@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CartAdapter extends BaseAdapter {
@@ -55,7 +54,7 @@ public class CartAdapter extends BaseAdapter {
 		if (price != null)
 			price.setText(prod.getPrice() + " €");
 		TextView quant = (TextView) v.findViewById(R.id.quantity);
-		if(quant != null)
+		//if(quant != null)
 			quant.setText("Menge: "+ CartHelper.getProductQuantity(prod));
 
   return v;

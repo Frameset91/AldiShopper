@@ -1,18 +1,20 @@
 package de.aldi.shopper;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +39,6 @@ public class ProceedToCheckout extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
 		// Daten aktualisieren
 		if (cartAdapter != null) {
 			cartAdapter.notifyDataSetChanged();
@@ -51,32 +52,44 @@ public class ProceedToCheckout extends Activity {
 
 		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
 		DecimalFormat f = new DecimalFormat("#0.00");
-		productPriceTextView.setText("Summe: " + f.format(subTotal) + "€");
+		productPriceTextView.setText(f.format(subTotal));
 	}
 
 	public void onCheckout(View view) {
+		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
+		String total = productPriceTextView.getText().toString();
 		Intent checkout = new Intent(this, Checkout.class);
+		checkout.putExtra("total", total);
 		startActivity(checkout);
 	}
 
+	/**
+	 * Save cart for later checkout
+	 */
 	public void onSaveCart(View view) {
-		String fileName = "activeCart";
-		FileOutputStream fileOutput = null;
-		ObjectOutputStream objectOutput = null;
-
-		try {
-			fileOutput = this.openFileOutput(fileName, MODE_PRIVATE);
-			objectOutput = new ObjectOutputStream(fileOutput);
-			objectOutput.writeObject(cartList);
-			Toast.makeText(this, "Einkaufswagen gespeichert", Toast.LENGTH_SHORT)
-					.show();
-		} catch (FileNotFoundException e) {
-			Toast.makeText(this, "Datei nicht gefunden", Toast.LENGTH_SHORT).show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (!cartList.isEmpty()) {
+			String fileName = "activeCart";
+			FileOutputStream fileOutput = null;
+			ObjectOutputStream objectOutput = null;
+			Map<Product, Integer> cartQuantity = new HashMap<Product, Integer>();
+			for (Product p : cartList) {
+				int quantity = CartHelper.getProductQuantity(p);
+				cartQuantity.put(p, quantity);
+			}
+			try {
+				fileOutput = this.openFileOutput(fileName, MODE_PRIVATE);
+				objectOutput = new ObjectOutputStream(fileOutput);
+				objectOutput.writeObject(cartQuantity);
+				Toast.makeText(this, "Einkaufswagen gespeichert",
+						Toast.LENGTH_SHORT).show();
+				System.out.println("Warenkorb wurde gespeichert");
+			} catch (FileNotFoundException e) {
+				Toast.makeText(this, "Datei nicht gefunden", Toast.LENGTH_SHORT)
+						.show();
+			} catch (IOException e) {
+				Toast.makeText(this, "IOException", Toast.LENGTH_SHORT).show();
+			}
 		}
-
 	}
 
 	@Override

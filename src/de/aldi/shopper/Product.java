@@ -5,8 +5,6 @@ package de.aldi.shopper;
 
 import java.io.Serializable;
 
-import android.widget.NumberPicker;
-
 public class Product implements Serializable{
     
 	public int productID;
@@ -15,8 +13,6 @@ public class Product implements Serializable{
 	public String description;
 	public String unit;
 	public double price;
-	//public int quantity;
-	public NumberPicker quantityPicker;
 	//public boolean selected = false;
 
     public Product( int productID, int categoryID, String name, String description, String unit, double price, boolean selected) {
@@ -27,6 +23,10 @@ public class Product implements Serializable{
 		this.unit = unit;
 		this.price = price;
 		//this.selected = selected;
+    }
+    
+    public int getID(){
+    	return productID;
     }
 
     public String getName() {
@@ -44,17 +44,6 @@ public class Product implements Serializable{
     public String getDescription(){
     	return description;
     }
-    
-    public NumberPicker getQuantPicker(){
-    	return quantityPicker;
-    }
-//    public int getQuantity(){
-//    	Integer q = quantityPicker.getValue();
-//    	if(q == null)
-//    		quantityPicker.setValue(0);
-//    	return quantityPicker.getValue();
-//    }
-    
 
 //    public boolean getState() {
 //	    return selected;

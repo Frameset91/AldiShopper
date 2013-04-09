@@ -5,7 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.StreamCorruptedException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,12 +18,13 @@ import android.widget.Toast;
 
 public class Activecart extends Activity {
 
-	private List<Product> cartList;
+	private List<Product> loadedCartList;
+	private Map<Product, Integer> loadedCartMap;
 	private CartAdapter cartAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_proceed_to_checkout);
+		setContentView(R.layout.activity_activecart);
 		
 		FileInputStream fileIn = null;
 		ObjectInputStream objectIn = null;
@@ -31,21 +35,29 @@ public class Activecart extends Activity {
 		}
 		try {
 			objectIn = new ObjectInputStream(fileIn);
-			cartList = (List<Product>) objectIn.readObject();
+			//loadedCartList = (List<Product>) objectIn.readObject();
+			loadedCartMap = (Map<Product, Integer>) objectIn.readObject();
+			loadedCartList = new Vector<Product>(loadedCartMap.keySet().size());
+			for (Product p : loadedCartMap.keySet()){
+				int quantity = loadedCartMap.get(p);
+				CartHelper.setQuantity(p, quantity);
+				loadedCartList.add(p);
+			}
 		} catch (StreamCorruptedException e) {
 			Toast.makeText(this, "Stream Corruption", Toast.LENGTH_SHORT).show();
 		} catch (IOException e) {
 			Toast.makeText(this, "IOException", Toast.LENGTH_SHORT).show();
 		} catch (ClassNotFoundException e) {
-			Toast.makeText(this, "Class not Found", Toast.LENGTH_SHORT);
+			Toast.makeText(this, "Class not Found", Toast.LENGTH_SHORT).show();
 		}
 		
 		ListView cart = (ListView) findViewById(R.id.cartList);
-		cartAdapter = new CartAdapter(cartList, getLayoutInflater());
+		cartAdapter = new CartAdapter(loadedCartList, getLayoutInflater());
 		cart.setAdapter(cartAdapter);
-
-		
 	}
+	
+	//TODO zurück zum Newcart springen und Mengen übernehmen!
+	//public void onEditCart(View view){}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

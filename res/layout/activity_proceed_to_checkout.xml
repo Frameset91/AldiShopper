@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:textAlignment="viewEnd" >
 
     <ListView
         android:id="@+id/cartList"
@@ -17,20 +18,41 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/saveCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Speichern"
-            android:onClick="onSaveCart" />
+            android:onClick="onSaveCart"
+            android:text="Speichern" />
 
-        <TextView
-            android:id="@+id/Subtotal"
+        <LinearLayout
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingLeft="5dp"
-            android:text="Summe:"
-            android:textSize="15sp" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:text="Summe: "
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/Subtotal"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:gravity="right"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:text=" €"
+                android:textSize="15sp" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnDone"

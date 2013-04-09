@@ -24,13 +24,12 @@
         android:text="@string/main_new"
         android:onClick="openNewcart" />
 
-
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnActive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_active"
-        android:onClick="openActivecart" />
+        android:onClick="openActivecart"
+        android:text="@string/main_active" />
 
     <Button
         android:id="@+id/button3"

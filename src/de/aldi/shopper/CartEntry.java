@@ -3,7 +3,9 @@
  */
 package de.aldi.shopper;
 
-public class CartEntry {
+import java.io.Serializable;
+
+public class CartEntry implements Serializable {
 	
 	private Product product;
 	private int quantity;

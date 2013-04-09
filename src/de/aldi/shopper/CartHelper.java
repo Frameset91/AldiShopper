@@ -52,6 +52,16 @@ public class CartHelper {
 		return cartList;
 	}
 	
+//	public static Map<Product, Integer> getCartMap(){		
+//		Map<Product, Integer> cartQuantity = new HashMap<Product, Integer>();
+//		for(CartEntry cur : cartMap.values()){
+//			Product p = cur.getProduct();
+//			int q = cur.getQuantity();
+//			cartQuantity.put(p, q);
+//		}
+//		return cartQuantity;
+//	}
+	
 	public static void removeAll(){
 		cartMap.clear();
 	}

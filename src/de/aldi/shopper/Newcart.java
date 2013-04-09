@@ -7,6 +7,7 @@ import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -23,7 +24,14 @@ public class Newcart extends ExpandableListActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_newcart);
-
+//		
+//		Button btnDone = (Button) findViewById(R.id.btnDone);
+//		if(CartHelper.getCartList().isEmpty()){
+//			btnDone.setEnabled(false);
+//		}
+		
+		//TODO button ausblenden, wenn noch nichts eingetragen ist!!
+		
 
         // Liste für Warengruppen
         comGroupsList = new ArrayList<String>();
@@ -47,46 +55,22 @@ public class Newcart extends ExpandableListActivity{
         //3. Kindgruppe
         product = new ArrayList<Product>();
         product.add( new Product(4, 4, "AMAROY Premium Röstkaffee Extra Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.59, false)); 
-        //product.add( new Product(5, 5, "AMAROY Premium Röstkaffee Entkoffeiniert Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.99, false)); 
+        product.add( new Product(5, 5, "AMAROY Premium Röstkaffee Entkoffeiniert Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.99, false)); 
         product.add( new Product(6, 6, "AMAROY Premium Röstkaffee Extra Gemahlen", "Lorem ipsum dolor sit amet","500g", 2.99, false));
         comGroups.add(product);
 
 		prodAdapterCatalog = new ProductAdapter(this,comGroupsList, comGroups);
 		setListAdapter( prodAdapterCatalog );
-		
-		
     }
 
     public void onContentChanged  () {
         super.onContentChanged();
+//		Button btnDone = (Button) findViewById(R.id.btnDone);
+//		if(CartHelper.getCartList().isEmpty())
+//			btnDone.setEnabled(false);
+//		else btnDone.setEnabled(true);
     }
     
-    
-//	muss ersetzt werden: Anzeigen der Zwischensumme
-    @Override
-    public  boolean onChildClick(ExpandableListView parent, View v, int groupPosition,int childPosition, long id) {
-        System.out.println("auf Kind geklickt: " + groupPosition + ", " + childPosition);
-        
-//        Product curProd = catalog.getChild(groupPosition, childPosition);
-//        double subTotal = curProd.getPrice();
-        
-       // Zwischensumme
-        double subTotal = 0;
-        for (Product p : comGroups.get(childPosition)){
-        	double prodPrice = p.getPrice();
-        	subTotal = prodPrice * p.getQuantPicker().getValue();
-        	}
-        
-        TextView prodprice = (TextView)findViewById(R.id.Subtotal);
-        prodprice.setText("Zwischensumme: " + subTotal + "€");
-        System.out.println(("Zwischensumme: " + subTotal + "€"));
-        //CheckBox cb = (CheckBox)v.findViewById( R.id.check1 );
-        //if( cb != null )
-        //   cb.toggle();
-        return false;
-    }
-    
-
     public void onProceed(View view){
     	Intent proceed = new Intent(this, ProceedToCheckout.class);
     	startActivity(proceed);

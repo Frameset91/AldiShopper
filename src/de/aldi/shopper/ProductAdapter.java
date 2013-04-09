@@ -70,6 +70,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 				int quantity = numPickQuantity.getValue();
 				CartHelper.setQuantity(prod, quantity);
 				System.out.println(prod.getName() + " wurde gewählt, Menge: " + quantity+"\n in CartHelper gespeichert");
+				
 			}
 		});
 
@@ -77,11 +78,6 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		// cb.setChecked( c.getState() );
 		return v;
 	}
-	
-	public NumberPicker getQuantPicker(int groupPosition, int childPosition){
-		return comGroups.get(groupPosition).get(childPosition).quantityPicker;
-	}
-	
 
 	public int getChildrenCount(int groupPosition) {
 		return comGroups.get(groupPosition).size();
