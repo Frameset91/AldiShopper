@@ -5,15 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.StreamCorruptedException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Activecart extends Activity {
@@ -56,7 +60,35 @@ public class Activecart extends Activity {
 		cart.setAdapter(cartAdapter);
 	}
 	
-	//TODO zurück zum Newcart springen und Mengen übernehmen!
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// Daten aktualisieren
+		if (cartAdapter != null) {
+			cartAdapter.notifyDataSetChanged();
+		}
+
+		double subTotal = 0;
+		for (Product p : loadedCartList) {
+			int quantity = CartHelper.getProductQuantity(p);
+			subTotal += p.price * quantity;
+		}
+
+		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
+		DecimalFormat f = new DecimalFormat("#0.00");
+		productPriceTextView.setText(f.format(subTotal) +" €");
+	}
+
+	
+	public void onCheckout(View view) {
+		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
+		String total = productPriceTextView.getText().toString();
+		Intent checkout = new Intent(this, Checkout.class);
+		checkout.putExtra("total", total);
+		startActivity(checkout);
+	}
+	
+	//TODO ActiveCart bearbeiten: zurück zum Newcart springen und Mengen übernehmen!
 	//public void onEditCart(View view){}
 
 	@Override

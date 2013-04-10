@@ -27,7 +27,7 @@ public class Checkout extends Activity {
 		
 		// Füllen von "Summe" durch Übergabe aus Proceed
 		TextView textTotal = (TextView) findViewById(R.id.total);
-		textTotal.setText(total);
+		textTotal.setText(total + "     "+ "(" + CartHelper.getCartList().size() + " Artikel)");
 		
 		Spinner store = (Spinner) findViewById(R.id.storeDD);
 		ArrayAdapter<CharSequence> spinAd = ArrayAdapter.createFromResource(this, R.array.stores, android.R.layout.simple_spinner_item);

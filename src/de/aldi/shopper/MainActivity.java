@@ -17,39 +17,44 @@ public class MainActivity extends Activity {
 	private SharedPreferences userData; // Zur Speicherung des Vor- und Nachnamens
 	private File dir;	// Unser Dateispeicher im internen Speicher des Handys
 	private File activeCart;	// Unsere Datei, in der aktuelle Warenkörbe gespeichert werden
+	Button btnActive;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Zuerst überprüfen, ob bereits User-Daten hinterlegt wurden
 		userData = this.getSharedPreferences("userData", MODE_PRIVATE);
+		// Wenn noch nichts eingegeben, erst Optionen aufrufen
+		if (userData.getString("firstname", null) == null){
+			Intent optionsFirst = new Intent(this, Options.class);
+			startActivity(optionsFirst);
+			}
 		// Wenn bereits die Namen gespeichert wurden, Main aufrufen
-		if (userData.getString("firstname", null) != null){
+		else {
 			setContentView(R.layout.activity_main);
 			dir = getFilesDir();
 			activeCart = new File(dir, "activeCart");
 			if (activeCart.exists() == false){		// Überprüfe, ob bereits ein aktueller Cart vorhanden ist. Falls nein, Button Aktueller Warenkorb deaktivieren
-				Button btnActive = (Button) findViewById(R.id.btnActive);
+				btnActive = (Button) findViewById(R.id.btnActive);
 				btnActive.setEnabled(false);
 			}
-			
-		}
-		
-		// Wenn noch nichts eingegeben, erst Optionen aufrufen
-		else {
-			Intent optionsFirst = new Intent(this, Options.class);
-			startActivity(optionsFirst);
 		}
 	}
 	
-//	@Override
-//	protected void onResume(){
-//		super.onResume();
-//		Button btnActive = (Button) findViewById(R.id.btnActive);
-//		if (activeCart.exists()==false)
-//			btnActive.setEnabled(false);
-//		else btnActive.setEnabled(true);
-//	}
+	@Override
+	protected void onResume(){
+		super.onResume();
+		dir = getFilesDir();
+		activeCart = new File(dir, "activeCart");
+		if (activeCart.exists()==false){
+			btnActive = (Button) findViewById(R.id.btnActive);
+			btnActive.setEnabled(false);
+			}
+		else{
+			btnActive = (Button) findViewById(R.id.btnActive);
+			btnActive.setEnabled(true);
+		}
+	}
 
 	public void openNewcart(View view) {
 		final Intent newcart = new Intent(this, Newcart.class);
@@ -67,6 +72,8 @@ public class MainActivity extends Activity {
 						// Wenn der Benutzer "Ja" auswählt, wird der aktuelle Warenkorb gelöscht und kann direkt einen neuen anlegen
 						public void onClick(DialogInterface arg0, int arg1) {
 							activeCart.delete();
+							Button btnActive = (Button) findViewById(R.id.btnActive);
+							btnActive.setEnabled(false);
 							startActivity(newcart);
 						}
 			});

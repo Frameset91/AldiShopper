@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Newcart extends ExpandableListActivity{
@@ -19,20 +19,18 @@ public class Newcart extends ExpandableListActivity{
     ArrayList<ArrayList<Product>> comGroups;
     ExpandableListView expListCatalog;
     ArrayList<Product> product;
+    //private Button btnDone;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_newcart);
-//		
-//		Button btnDone = (Button) findViewById(R.id.btnDone);
+		//TODO button ausblenden, wenn noch nichts eingetragen ist!! wieder aktivieren funktioniert nicht
 //		if(CartHelper.getCartList().isEmpty()){
+//			btnDone = (Button) findViewById(R.id.btnProceed);
 //			btnDone.setEnabled(false);
 //		}
 		
-		//TODO button ausblenden, wenn noch nichts eingetragen ist!!
-		
-
         // Liste für Warengruppen
         comGroupsList = new ArrayList<String>();
         comGroupsList.add("Käse");
@@ -62,20 +60,27 @@ public class Newcart extends ExpandableListActivity{
 		prodAdapterCatalog = new ProductAdapter(this,comGroupsList, comGroups);
 		setListAdapter( prodAdapterCatalog );
     }
-
+	
+	@Override
     public void onContentChanged  () {
         super.onContentChanged();
-//		Button btnDone = (Button) findViewById(R.id.btnDone);
-//		if(CartHelper.getCartList().isEmpty())
-//			btnDone.setEnabled(false);
-//		else btnDone.setEnabled(true);
     }
     
+    /**
+     * Go to next activity: ProceedToCheckout
+     */
     public void onProceed(View view){
-    	Intent proceed = new Intent(this, ProceedToCheckout.class);
-    	startActivity(proceed);
+    	if(CartHelper.getCartList().isEmpty())
+    		Toast.makeText(this, "Keine Artikel ausgewählt", Toast.LENGTH_SHORT).show();
+    	else{
+    		Intent proceed = new Intent(this, ProceedToCheckout.class);
+    		startActivity(proceed);
+    	}
     }
     
+    /**
+     * delete selected quantities if user goes back to MainActivity
+     */
     @Override
     public void onBackPressed() {
     	CartHelper.removeAll();

@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +27,7 @@ public class ProceedToCheckout extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_proceed_to_checkout);
-
 		cartList = CartHelper.getCartList();
-
 		ListView listViewCatalog = (ListView) findViewById(R.id.cartList);
 		cartAdapter = new CartAdapter(cartList, getLayoutInflater());
 		listViewCatalog.setAdapter(cartAdapter);
@@ -52,7 +49,7 @@ public class ProceedToCheckout extends Activity {
 
 		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
 		DecimalFormat f = new DecimalFormat("#0.00");
-		productPriceTextView.setText(f.format(subTotal));
+		productPriceTextView.setText(f.format(subTotal) +" €");
 	}
 
 	public void onCheckout(View view) {

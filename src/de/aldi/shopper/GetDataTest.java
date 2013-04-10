@@ -81,8 +81,7 @@ public class GetDataTest extends Activity {
 				}
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("JSON Exception");
 			}
 
 			mHandler.post(showUpdate);
