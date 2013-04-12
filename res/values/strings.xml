@@ -22,8 +22,8 @@
     <string name="title_activity_get_data_test">GetDataTest</string>
     <string name="title_activity_proceed_to_checkout">ProceedToCheckout</string>
     <string name="title_activity_checkout">Checkout</string>
-    
-        <string-array name="stores">
+
+    <string-array name="stores">
         <item>Filiale A</item>
         <item>Filiale B</item>
         <item>Filiale C</item>
@@ -33,5 +33,7 @@
         <item>Filiale G</item>
         <item>Filiale H</item>
     </string-array>
+
+    <string name="title_activity_thanks_for_ordering">ThanksForOrdering</string>
 
 </resources>

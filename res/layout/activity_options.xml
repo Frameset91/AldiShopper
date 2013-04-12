@@ -59,7 +59,23 @@
             android:ems="10"
             android:hint="Nachname..."
             android:inputType="textPersonName|textCapSentences" />
+    </TableRow>
 
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ihre Stammfiliale:"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/storeDD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </TableRow>
 
     <TableRow
@@ -71,9 +87,8 @@
             android:id="@+id/saveSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Speichern" 
-            android:onClick="onSaveSettings"/>
-
+            android:onClick="onSaveSettings"
+            android:text="Speichern" />
     </TableRow>
 
 </TableLayout>

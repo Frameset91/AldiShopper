@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class Options extends Activity {
@@ -23,11 +25,20 @@ public class Options extends Activity {
 		EditText lName = (EditText) findViewById(R.id.lastname);
 		fName.setText(userData.getString("firstname", ""));
 		lName.setText(userData.getString("lastname", ""));
+		
+		Spinner store = (Spinner) findViewById(R.id.storeDD);
+		ArrayAdapter<CharSequence> spinAd = ArrayAdapter.createFromResource(this, R.array.stores, android.R.layout.simple_spinner_item);
+		spinAd.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		store.setAdapter(spinAd);
+		int pos = spinAd.getPosition(userData.getString("store", ""));
+		store.setSelection(pos);
 	}
 
 	public void onSaveSettings(View view) {
 		EditText fName = (EditText) findViewById(R.id.fistname);
 		EditText lName = (EditText) findViewById(R.id.lastname);
+		Spinner store = (Spinner) findViewById(R.id.storeDD);
+
 		if(fName.getText().toString().matches("")|| lName.getText().toString().matches("")){
 			Toast setData = Toast.makeText(this, "Bitte geben Sie ihre Daten ein!", Toast.LENGTH_SHORT);
 			setData.setGravity(Gravity.CENTER, 0, 0);
@@ -37,6 +48,7 @@ public class Options extends Activity {
 			SharedPreferences.Editor userDataEditor = userData.edit();
 			userDataEditor.putString("firstname", fName.getText().toString());
 			userDataEditor.putString("lastname", lName.getText().toString());
+			userDataEditor.putString("store", store.getSelectedItem().toString());
 			userDataEditor.apply();
 			Intent backToStart = new Intent(this, MainActivity.class);
 			startActivity(backToStart);

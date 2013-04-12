@@ -58,6 +58,10 @@
             android:name="de.aldi.shopper.Checkout"
             android:label="@string/title_activity_checkout" >
         </activity>
+        <activity
+            android:name="de.aldi.shopper.ThanksForOrdering"
+            android:label="@string/title_activity_thanks_for_ordering" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,74 +1,89 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:columnCount="4" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <TextView
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:paddingTop="50dip"
+        android:layout_weight="1"
+        android:columnCount="4" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:padding="10dip"
+            android:paddingRight="10dip"
+            android:text="Bestellung für:"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/firstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:paddingRight="5dip"
+            android:text="Vorname"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/lastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:text="Nachname"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+                <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:padding="10dip"
+            android:text="Filiale:"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/storeDD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:layout_row="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:padding="10dip"
+            android:paddingRight="10dip"
+            android:text="Summe:"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:layout_row="2"
+            android:text="Summe"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/sendOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_row="0"
-        android:padding="10dip"
-        android:paddingRight="10dip"
-        android:text="Bestellung für:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_gravity="bottom|right"
+        android:onClick="onSendOrder"
+        android:text="Bestellung senden" />
 
-    <TextView
-        android:id="@+id/firstname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:layout_row="0"
-        android:paddingRight="5dip"
-        android:text="Vorname"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/lastname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="2"
-        android:layout_row="0"
-        android:text="Nachname"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_row="1"
-        android:padding="10dip"
-        android:paddingRight="10dip"
-        android:text="Summe:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:layout_columnSpan="2"
-        android:layout_row="1"
-        android:text="Summe"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_row="2"
-        android:minLines="2"
-        android:padding="10dip"
-        android:text="Filiale\nauswählen:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/storeDD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:layout_columnSpan="2"
-        android:layout_row="2" />
-
-</GridLayout>
+</LinearLayout>
