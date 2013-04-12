@@ -48,11 +48,13 @@ public class MainActivity extends Activity {
 		activeCart = new File(dir, "activeCart");
 		if (activeCart.exists()==false){
 			btnActive = (Button) findViewById(R.id.btnActive);
-			btnActive.setEnabled(false);
+			if (btnActive != null)
+				btnActive.setEnabled(false);
 			}
 		else{
 			btnActive = (Button) findViewById(R.id.btnActive);
-			btnActive.setEnabled(true);
+			if (btnActive != null)
+				btnActive.setEnabled(true);
 		}
 	}
 

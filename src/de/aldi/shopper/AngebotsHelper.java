@@ -2,6 +2,7 @@ package de.aldi.shopper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -57,6 +58,16 @@ public class AngebotsHelper extends SQLiteOpenHelper{
 		values.put(PRODUCT_UNIT, unit);
 		values.put(PRODUCT_PRICE, price);
 		return (db.insert(TABLE_NAME_PRODUCTS, null, values));
+	}
+	
+	public static Cursor getCursorCategory(SQLiteDatabase db) {
+		return db.query(true, TABLE_NAME_PRODUCTS, new String[] {PRODUCT_CATEGORY_NAME, PRODUCT_CATEGORY_ID}, null, null, null, null, null, null);
+	}
+	
+	public static Cursor getCursorCategoryItem(SQLiteDatabase db, String categoryID) {
+		final String selection = PRODUCT_CATEGORY_ID + "=?";
+		final String[] selectionArgs = {categoryID};
+		return db.query(TABLE_NAME_PRODUCTS, new String[] {PRODUCT_ID, PRODUCT_CATEGORY_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_UNIT, PRODUCT_PRICE}, selection, selectionArgs, null, null, null);
 	}
 	
 }
