@@ -28,6 +28,7 @@ public class Newcart extends ExpandableListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_newcart);
+
 		// TODO button ausblenden, wenn noch nichts eingetragen ist!! wieder
 		// aktivieren funktioniert nicht
 		// if(CartHelper.getCartList().isEmpty()){
@@ -46,7 +47,6 @@ public class Newcart extends ExpandableListActivity {
 		do {
 			comGroupsList.add(cur.getString(0));
 			product = new ArrayList<Product>(); // Produktliste für jeweils eine Warengruppe
-			Log.d("ollo", "Suche Kategorie" + cur.getString(0));
 			Cursor cur2 = AngebotsHelper.getCursorCategoryItem(db, cur.getString(1));
 			cur2.moveToFirst();
 			do {
@@ -105,6 +105,7 @@ public class Newcart extends ExpandableListActivity {
 	/**
 	 * delete selected quantities if user goes back to MainActivity
 	 */
+
 	@Override
 	public void onBackPressed() {
 		CartHelper.removeAll();

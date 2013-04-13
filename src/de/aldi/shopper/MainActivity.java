@@ -57,6 +57,7 @@ public class MainActivity extends Activity {
 				btnActive.setEnabled(true);
 		}
 	}
+//TODO onResume: intent abfangen, bei newcart ein onBackPressed + intent anlegen
 
 	public void openNewcart(View view) {
 		final Intent newcart = new Intent(this, Newcart.class);
@@ -105,6 +106,11 @@ public class MainActivity extends Activity {
 	public void openData(View view) {
 		Intent data = new Intent(this, GetDataTest.class);
 		startActivity(data);
+	}
+	
+	public void openTestThankYou(View view){
+		Intent start = new Intent(this, ThanksForOrdering.class);
+		startActivity(start);
 	}
 	
 	

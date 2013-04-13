@@ -16,13 +16,12 @@
         android:text="Test Titel"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_new"
-        android:onClick="openNewcart" />
+        android:onClick="openNewcart"
+        android:text="@string/main_new" />
 
     <Button
         android:id="@+id/btnActive"
@@ -35,20 +34,28 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_options"
-        android:onClick="openOptions" />
+        android:onClick="openOptions"
+        android:text="@string/main_options" />
+
     <Button
         android:id="@+id/button5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_manuallist"
-        android:onClick="openManualList" />
+        android:onClick="openManualList"
+        android:text="@string/main_manuallist" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DATA!"
-        android:onClick="openData" />
+        android:onClick="openData"
+        android:text="DATA!" />
+
+    <Button
+        android:id="@+id/btnThankYou"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openTestThankYou"
+        android:text="Vielen Dank für Ihren Einkauf" />
 
 </LinearLayout>

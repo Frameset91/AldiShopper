@@ -12,13 +12,15 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 public class Checkout extends Activity {
+	
+	private String total;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
 		Intent proceedToCheckout = getIntent();
-		String total = proceedToCheckout.getStringExtra("total");
+		total = proceedToCheckout.getStringExtra("total");
 		//Füllen der "Bestellung für: " mit den eingetragenen Benutzerdaten
 		SharedPreferences userData = this.getSharedPreferences("userData", MODE_PRIVATE);
 		TextView fName = (TextView)findViewById(R.id.firstname);
@@ -46,6 +48,7 @@ public class Checkout extends Activity {
 		userDataEditor.putString("store", store.getSelectedItem().toString());
 		userDataEditor.apply();
 		Intent thankYou = new Intent(this, ThanksForOrdering.class);
+		thankYou.putExtra("total", total);
 		startActivity(thankYou);
 	}
 
