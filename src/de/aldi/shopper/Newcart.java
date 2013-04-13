@@ -29,13 +29,6 @@ public class Newcart extends ExpandableListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_newcart);
 
-		// TODO button ausblenden, wenn noch nichts eingetragen ist!! wieder
-		// aktivieren funktioniert nicht
-		// if(CartHelper.getCartList().isEmpty()){
-		// btnDone = (Button) findViewById(R.id.btnProceed);
-		// btnDone.setEnabled(false);
-		// }
-
 		// Liste für Warengruppen
 		comGroupsList = new ArrayList<String>();
 		comGroups = new ArrayList<ArrayList<Product>>(); // Liste Warengruppe, die Listen mit Produkten speichert
@@ -110,13 +103,6 @@ public class Newcart extends ExpandableListActivity {
 	public void onBackPressed() {
 		CartHelper.removeAll();
 		finish();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.newcart, menu);
-		return true;
 	}
 
 }

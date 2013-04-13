@@ -50,17 +50,11 @@ public class Options extends Activity {
 			userDataEditor.putString("lastname", lName.getText().toString());
 			userDataEditor.putString("store", store.getSelectedItem().toString());
 			userDataEditor.apply();
-			Intent backToStart = new Intent(this, MainActivity.class);
-			backToStart.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(backToStart);
+			finish();
+//			Intent backToStart = new Intent(this, MainActivity.class);
+//			backToStart.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//			startActivity(backToStart);
 			}
 		}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.options, menu);
-		return true;
-	}
 
 }

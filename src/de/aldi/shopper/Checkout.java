@@ -1,20 +1,24 @@
 package de.aldi.shopper;
 
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Checkout extends Activity {
 	
 	private String total;
+	private String userFirstname;
+	private String userLastname;
+	private SharedPreferences userData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +26,22 @@ public class Checkout extends Activity {
 		setContentView(R.layout.activity_checkout);
 		Intent proceedToCheckout = getIntent();
 		total = proceedToCheckout.getStringExtra("total");
+		// Füllen von "Summe" durch Übergabe aus Proceed
+		TextView textTotal = (TextView) findViewById(R.id.total);
+		textTotal.setText(total + "     "+ "(" + CartHelper.getCartList().size() + " Artikel)");
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
 		//Füllen der "Bestellung für: " mit den eingetragenen Benutzerdaten
-		SharedPreferences userData = this.getSharedPreferences("userData", MODE_PRIVATE);
+		userData = this.getSharedPreferences("userData", MODE_PRIVATE);
 		TextView fName = (TextView)findViewById(R.id.firstname);
 		TextView lName = (TextView)findViewById(R.id.lastname);
-		fName.setText(userData.getString("firstname", ""));
-		lName.setText(userData.getString("lastname", ""));
+		userFirstname = userData.getString("firstname", "");
+		fName.setText(userFirstname);
+		userLastname = userData.getString("lastname", ""); 
+		lName.setText(userLastname);
 		
 		// Füllen der Stammfiliale
 		Spinner store = (Spinner) findViewById(R.id.storeDD);
@@ -36,14 +50,10 @@ public class Checkout extends Activity {
 		store.setAdapter(spinAd);
 		int pos = spinAd.getPosition(userData.getString("store", ""));
 		store.setSelection(pos);
-		
-		// Füllen von "Summe" durch Übergabe aus Proceed
-		TextView textTotal = (TextView) findViewById(R.id.total);
-		textTotal.setText(total + "     "+ "(" + CartHelper.getCartList().size() + " Artikel)");
 	}
 	
 	public void onSendOrder(View view){
-		SharedPreferences userData = this.getSharedPreferences("userData", MODE_PRIVATE);
+		userData = this.getSharedPreferences("userData", MODE_PRIVATE);
 		SharedPreferences.Editor userDataEditor = userData.edit();
 		Spinner store = (Spinner) findViewById(R.id.storeDD);
 		String chosenStore = store.getSelectedItem().toString();
@@ -53,26 +63,37 @@ public class Checkout extends Activity {
 		//TODO Email-Weiterleitung?
 		Intent email = new Intent(Intent.ACTION_SEND);
 		email.setType("message/rfc822");
-		email.putExtra(Intent.EXTRA_EMAIL, new String[]{"nora.herentrey@gmail.com"});
-		email.putExtra(Intent.EXTRA_SUBJECT, "Einkaufswagenbestellung an Filiale " + chosenStore);
-		email.putExtra(Intent.EXTRA_TEXT, "Test-Email der ersten Bestellung");
-		try{
-			startActivity(Intent.createChooser(email, "Bestellung absenden"));
+		email.putExtra(Intent.EXTRA_EMAIL, new String[]{"nora.herentrey@googlemail.com"});
+		email.putExtra(Intent.EXTRA_SUBJECT, "Bestellung an Filiale: " + chosenStore);		
+		List<Product> orderList = CartHelper.getCartList();
+		String emailList = "Bestellung für : " + userLastname + ", " + userFirstname + "\n\n";
+		for(Product p : orderList){
+			String name = p.getName();
+			int quantity = CartHelper.getProductQuantity(p);
+			emailList = emailList + name + ", x" + quantity + "\n";
 		}
-		catch(android.content.ActivityNotFoundException ex){
-			Toast.makeText(this, "Keine Email-Applikation installiert!", Toast.LENGTH_LONG).show();
-		}
-		
-		Intent thankYou = new Intent(this, ThanksForOrdering.class);
-		thankYou.putExtra("total", total);
-		startActivity(thankYou);
-	}
+		emailList = emailList + "\n Summe: " + total;
+		email.putExtra(Intent.EXTRA_TEXT, emailList);
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.checkout, menu);
-		return true;
+		Intent eStart = Intent.createChooser(email, "Senden");
+		eStart.putExtra("list", email);
+		startActivity(eStart);
+		
+		Timer timer = new Timer();
+		final Intent thankYou = new Intent(this, ThanksForOrdering.class);
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				thankYou.putExtra("total", total);
+				startActivity(thankYou);	
+			}
+		}, 10000);
+	}
+	
+	public void onEditOptions(View view){
+		Intent openOp = new Intent(this, Options.class);
+		startActivity(openOp);
 	}
 
 }

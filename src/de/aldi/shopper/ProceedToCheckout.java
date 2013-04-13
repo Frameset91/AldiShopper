@@ -89,11 +89,4 @@ public class ProceedToCheckout extends Activity {
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.proceed_to_checkout, menu);
-		return true;
-	}
-
 }

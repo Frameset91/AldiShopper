@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 			startActivity(optionsFirst);
 			}
 		// Wenn bereits die Namen gespeichert wurden, Main aufrufen
-		else {
+		//else {
 			setContentView(R.layout.activity_main);
 			dir = getFilesDir();
 			activeCart = new File(dir, "activeCart");
@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 				btnActive = (Button) findViewById(R.id.btnActive);
 				btnActive.setEnabled(false);
 			}
-		}
+		//}
 	}
 	
 	@Override
@@ -64,7 +64,6 @@ public class MainActivity extends Activity {
 
 		// Wenn bereits ein aktueller Warenkorb vorhanden ist, wird ein Dialog geöffnet, bei dem der Benutzer den aktuellen Warenkorb löschen kann, oder Abbruch
 		if (activeCart.exists()==false)
-		//if (CartHelper.getCartList().isEmpty()==true)
 			startActivity(newcart);
 		
 		else {
@@ -106,18 +105,6 @@ public class MainActivity extends Activity {
 	public void openData(View view) {
 		Intent data = new Intent(this, GetDataTest.class);
 		startActivity(data);
-	}
-	
-	public void openTestThankYou(View view){
-		Intent start = new Intent(this, ThanksForOrdering.class);
-		startActivity(start);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
 	}
 
 }

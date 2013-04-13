@@ -91,11 +91,4 @@ public class Activecart extends Activity {
 	//TODO ActiveCart bearbeiten: zurück zum Newcart springen und Mengen übernehmen!
 	//public void onEditCart(View view){}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activecart, menu);
-		return true;
-	}
-
 }

@@ -35,5 +35,6 @@
     </string-array>
 
     <string name="title_activity_thanks_for_ordering">ThanksForOrdering</string>
+    <string name="title_activity_send_order_via_mail">SendOrderViaMail</string>
 
 </resources>

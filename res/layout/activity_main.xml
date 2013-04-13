@@ -51,11 +51,4 @@
         android:onClick="openData"
         android:text="DATA!" />
 
-    <Button
-        android:id="@+id/btnThankYou"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="openTestThankYou"
-        android:text="Vielen Dank für Ihren Einkauf" />
-
 </LinearLayout>

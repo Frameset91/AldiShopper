@@ -62,6 +62,10 @@
             android:name="de.aldi.shopper.ThanksForOrdering"
             android:label="@string/title_activity_thanks_for_ordering" >
         </activity>
+        <activity
+            android:name="de.aldi.shopper.SendOrderViaMail"
+            android:label="@string/title_activity_send_order_via_mail" >
+        </activity>
     </application>
 
 </manifest>

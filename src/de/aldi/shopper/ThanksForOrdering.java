@@ -1,5 +1,6 @@
 package de.aldi.shopper;
 
+import java.io.File;
 import java.util.List;
 
 import android.os.Bundle;
@@ -62,13 +63,12 @@ public class ThanksForOrdering extends Activity {
 		Intent main = new Intent(this, MainActivity.class);
 		main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(main);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.thanks_for_ordering, menu);
-		return true;
+		
+		//Aktuellen Warenkorb löschen, wenn Bestellung abgeschickt wurde
+		File dir = getFilesDir();
+		File activeCart = new File(dir, "activeCart");
+		activeCart.delete();
+		CartHelper.removeAll();
 	}
 
 }
