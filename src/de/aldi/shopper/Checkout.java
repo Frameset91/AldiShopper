@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -19,7 +20,8 @@ public class Checkout extends Activity {
 	private String userFirstname;
 	private String userLastname;
 	private SharedPreferences userData;
-
+	final int ACTIVITY_ID = 1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,8 +61,7 @@ public class Checkout extends Activity {
 		String chosenStore = store.getSelectedItem().toString();
 		userDataEditor.putString("store", chosenStore);
 		userDataEditor.apply();
-		
-		//TODO Email-Weiterleitung?
+
 		Intent email = new Intent(Intent.ACTION_SEND);
 		email.setType("message/rfc822");
 		email.putExtra(Intent.EXTRA_EMAIL, new String[]{"nora.herentrey@googlemail.com"});
@@ -77,23 +78,24 @@ public class Checkout extends Activity {
 
 		Intent eStart = Intent.createChooser(email, "Senden");
 		eStart.putExtra("list", email);
-		startActivity(eStart);
+		startActivityForResult(eStart, ACTIVITY_ID);
 		
-		Timer timer = new Timer();
-		final Intent thankYou = new Intent(this, ThanksForOrdering.class);
-		timer.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				thankYou.putExtra("total", total);
-				startActivity(thankYou);	
-			}
-		}, 10000);
+		
+		
+		
 	}
 	
 	public void onEditOptions(View view){
 		Intent openOp = new Intent(this, Options.class);
 		startActivity(openOp);
+	} 
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.i("DEBUG:", requestCode +" - "+ resultCode);
+		
+		final Intent thankYou = new Intent(this, ThanksForOrdering.class);
+		thankYou.putExtra("total", total);
+		startActivity(thankYou);
 	}
 
 }

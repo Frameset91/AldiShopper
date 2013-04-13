@@ -102,7 +102,9 @@ public class Newcart extends ExpandableListActivity {
 	@Override
 	public void onBackPressed() {
 		CartHelper.removeAll();
-		finish();
+		//finish();
+		Intent main = new Intent(this, MainActivity.class);
+		startActivity(main);
 	}
 
 }

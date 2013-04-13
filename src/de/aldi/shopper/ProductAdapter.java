@@ -4,7 +4,15 @@
 
 package de.aldi.shopper;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
@@ -20,10 +29,27 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 	private ArrayList<String> comGroupsList;
 	private ArrayList<ArrayList<Product>> comGroups;
 	private LayoutInflater inflater;
+	private HashMap<Integer, Integer> loadedCart = new HashMap<Integer, Integer>();
 
 	public ProductAdapter(Context context, ArrayList<String> comGroupsList, ArrayList<ArrayList<Product>> comGroups) {
 		this.comGroupsList = comGroupsList;
 		this.comGroups = comGroups;
+		
+		FileInputStream fileIn = null;
+		ObjectInputStream objectIn = null;
+		try {
+			fileIn = context.openFileInput("activeCart");
+		
+			Map<Product, Integer> loadedCartMap;
+			objectIn = new ObjectInputStream(fileIn);
+			loadedCartMap = (Map<Product, Integer>) objectIn.readObject();
+			for (Product p : loadedCartMap.keySet()){
+				int quantity = loadedCartMap.get(p);
+				loadedCart.put(p.getID(), quantity);
+			}
+		} catch (Exception e) {
+		}
+		
 		inflater = LayoutInflater.from(context);
 	}
 	
@@ -62,7 +88,11 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		numPickQuantity.setMinValue(0); numPickQuantity.setMaxValue(40);
 		if(CartHelper.getCartList().contains(prod) == true)
 			numPickQuantity.setValue(CartHelper.getProductQuantity(prod));
+		else if((loadedCart.get(prod.getID())) != null)
+			numPickQuantity.setValue( loadedCart.get(prod.getID()) );
 		else numPickQuantity.setValue(0);
+		
+		
 		
 		numPickQuantity.setOnValueChangedListener(new OnValueChangeListener() {			
 			@Override
@@ -72,9 +102,6 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 				System.out.println(prod.getName() + " wurde gewählt, Menge: " + quantity+"\n in CartHelper gespeichert");
 			}
 		});
-
-		// CheckBox cb = (CheckBox)v.findViewById( R.id.check1 );
-		// cb.setChecked( c.getState() );
 		return v;
 	}
 	

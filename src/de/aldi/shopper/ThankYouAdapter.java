@@ -15,6 +15,7 @@ public class ThankYouAdapter extends BaseAdapter {
 
  private List<Product> mProductList;
  private LayoutInflater inflater;
+ final DecimalFormat f = new DecimalFormat("#0.00");
 
  public ThankYouAdapter(List<Product> list, LayoutInflater layoutInflater) {
   mProductList = list;
@@ -55,12 +56,11 @@ public class ThankYouAdapter extends BaseAdapter {
 		double prodPrice = prod.getPrice();
 		TextView price = (TextView) v.findViewById(R.id.price);
 		if (price != null){
-			DecimalFormat f = new DecimalFormat("#0.00");
 			price.setText(f.format(prodPrice) +" €");
 		}
 		TextView priceTotal = (TextView) v.findViewById(R.id.priceTotal);
 		double prodPriceTotal = prodQuantity * prodPrice;
-		priceTotal.setText(Double.toString(prodPriceTotal) + " €");
+		priceTotal.setText(f.format(prodPriceTotal) + " €");
 
   return v;
  }

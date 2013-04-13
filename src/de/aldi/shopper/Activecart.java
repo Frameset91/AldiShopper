@@ -39,7 +39,6 @@ public class Activecart extends Activity {
 		}
 		try {
 			objectIn = new ObjectInputStream(fileIn);
-			//loadedCartList = (List<Product>) objectIn.readObject();
 			loadedCartMap = (Map<Product, Integer>) objectIn.readObject();
 			loadedCartList = new Vector<Product>(loadedCartMap.keySet().size());
 			for (Product p : loadedCartMap.keySet()){
@@ -88,7 +87,9 @@ public class Activecart extends Activity {
 		startActivity(checkout);
 	}
 	
-	//TODO ActiveCart bearbeiten: zurück zum Newcart springen und Mengen übernehmen!
-	//public void onEditCart(View view){}
+	public void onEditCart(View view){
+		Intent newcart = new Intent(this, Newcart.class);
+		startActivity(newcart);
+	}
 
 }
