@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Checkout extends Activity {
 	
@@ -45,8 +46,23 @@ public class Checkout extends Activity {
 		SharedPreferences userData = this.getSharedPreferences("userData", MODE_PRIVATE);
 		SharedPreferences.Editor userDataEditor = userData.edit();
 		Spinner store = (Spinner) findViewById(R.id.storeDD);
-		userDataEditor.putString("store", store.getSelectedItem().toString());
+		String chosenStore = store.getSelectedItem().toString();
+		userDataEditor.putString("store", chosenStore);
 		userDataEditor.apply();
+		
+		//TODO Email-Weiterleitung?
+		Intent email = new Intent(Intent.ACTION_SEND);
+		email.setType("message/rfc822");
+		email.putExtra(Intent.EXTRA_EMAIL, new String[]{"nora.herentrey@gmail.com"});
+		email.putExtra(Intent.EXTRA_SUBJECT, "Einkaufswagenbestellung an Filiale " + chosenStore);
+		email.putExtra(Intent.EXTRA_TEXT, "Test-Email der ersten Bestellung");
+		try{
+			startActivity(Intent.createChooser(email, "Bestellung absenden"));
+		}
+		catch(android.content.ActivityNotFoundException ex){
+			Toast.makeText(this, "Keine Email-Applikation installiert!", Toast.LENGTH_LONG).show();
+		}
+		
 		Intent thankYou = new Intent(this, ThanksForOrdering.class);
 		thankYou.putExtra("total", total);
 		startActivity(thankYou);

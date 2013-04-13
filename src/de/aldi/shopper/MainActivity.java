@@ -112,8 +112,7 @@ public class MainActivity extends Activity {
 		Intent start = new Intent(this, ThanksForOrdering.class);
 		startActivity(start);
 	}
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

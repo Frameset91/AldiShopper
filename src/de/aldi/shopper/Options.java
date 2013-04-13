@@ -51,6 +51,7 @@ public class Options extends Activity {
 			userDataEditor.putString("store", store.getSelectedItem().toString());
 			userDataEditor.apply();
 			Intent backToStart = new Intent(this, MainActivity.class);
+			backToStart.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(backToStart);
 			}
 		}

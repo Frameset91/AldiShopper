@@ -55,24 +55,12 @@ public class ThanksForOrdering extends Activity {
 			articleQuant += CartHelper.getProductQuantity(p);
 		}
 		articles.setText(Integer.toString(articleQuant)+ " Artikel");
-		
-		//TODO Email-Weiterleitung?
-		Intent email = new Intent(Intent.ACTION_SEND);
-		email.setType("message/rfc822");
-		email.putExtra(Intent.EXTRA_EMAIL, new String[]{"nikey@hotmail.de"});
-		email.putExtra(Intent.EXTRA_SUBJECT, "Bestellung");
-		email.putExtra(Intent.EXTRA_TEXT, "Test-Email der ersten Bestellung");
-		try{
-			startActivity(Intent.createChooser(email, "Send mail..."));
-		}
-		catch(android.content.ActivityNotFoundException ex){
-			Toast.makeText(this, "no email clients installed", Toast.LENGTH_LONG).show();
-		}
 	}
 	
 	@Override
 	public void onBackPressed(){
 		Intent main = new Intent(this, MainActivity.class);
+		main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(main);
 	}
 
