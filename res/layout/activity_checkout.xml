@@ -3,11 +3,19 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="Bitte überprüfen Sie Ihre Angaben." />
+
     <GridLayout
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:columnCount="5"
+        android:columnCount="4"
         android:paddingTop="50dip" >
 
         <TextView
@@ -58,7 +66,7 @@
 
         <Spinner
             android:id="@+id/storeDD"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_columnSpan="3"
@@ -89,7 +97,7 @@
         android:id="@+id/sendOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="center"
         android:onClick="onSendOrder"
         android:text="Bestellung senden" />
 

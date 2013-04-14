@@ -2,10 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:clickable="true"
-    android:descendantFocusability="beforeDescendants"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:orientation="horizontal" >
 
     <LinearLayout
@@ -19,6 +15,7 @@
             android:id="@+id/childname"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:minLines="2"
             android:text="Product Name" />
 
@@ -49,25 +46,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:maxLines="6"
+            android:maxLines="4"
             android:text="Description" />
-
     </LinearLayout>
-
-    <!--
-    <EditText
-        android:id="@+id/quantity"
-        android:layout_width="50dip"
-        android:layout_height="fill_parent"
-        android:focusableInTouchMode="false"
-        android:text="2" /> -->
-
 
     <NumberPicker
         android:id="@+id/quantity"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dip"
         android:layout_gravity="right"
+        android:layout_marginLeft="5dip"
         android:gravity="right"
         android:orientation="vertical" />
 

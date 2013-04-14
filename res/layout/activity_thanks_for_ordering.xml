@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="ALDI"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="monospace" />
 
@@ -21,12 +21,14 @@
         android:layout_gravity="center"
         android:text="Filiale"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="22sp"
         android:typeface="monospace" />
 
     <ListView
         android:id="@+id/orderList"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:divider="@android:color/transparent"
         android:dividerHeight="6dp"
         android:scrollbarAlwaysDrawVerticalTrack="true" >
@@ -47,7 +49,13 @@
                 android:layout_gravity="left"
                 android:text="Summe"
                 android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
                 android:typeface="monospace" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/total"
@@ -56,7 +64,9 @@
                 android:layout_gravity="right"
                 android:text="Total"
                 android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
                 android:typeface="monospace" />
+
         </TableRow>
 
         <TableRow
@@ -70,8 +80,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Anzahl Artikel"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20sp"
                 android:typeface="monospace" />
+
         </TableRow>
     </TableLayout>
 

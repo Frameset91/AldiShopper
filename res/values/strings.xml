@@ -2,18 +2,17 @@
 <resources>
 
     <string name="app_name">AldiShopper</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Einstellungen</string>
     <string name="hello_world">Hallo Busch</string>
     <string name="main_new">Neuer Einkaufswagen</string>
     <string name="main_active">Aktueller Einkaufswagen</string>
     <string name="main_options">Einstellungen</string>
-    <string name="title_activity_newcart">Newcart</string>
+    <string name="title_activity_newcart">Neuer Einkaufswagen</string>
     <string name="newcart_hello">Neuen Warenkorb anlegen</string>
-    <string name="title_activity_activecart">Activecart</string>
+    <string name="title_activity_activecart">Aktueller Einkaufswagen</string>
     <string name="activecart_hello">Aktuellen Warenkorb anzeigen</string>
     <string name="title_activity_options">Options</string>
-    <string name="options_hello">Einstellungen tätigen</string>
-    <string name="title_activity_noratest">Noratest</string>
+    <string name="options_hello">Ihre persönlichen Einstellungen</string>
     <string name="title_activity_manual_list">ManualList</string>
 
     <string-array name="shopping_list"></string-array>
@@ -36,5 +35,6 @@
 
     <string name="title_activity_thanks_for_ordering">ThanksForOrdering</string>
     <string name="title_activity_send_order_via_mail">SendOrderViaMail</string>
+    <string name="btn_save">Speichern</string>
 
 </resources>

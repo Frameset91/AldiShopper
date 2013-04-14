@@ -30,7 +30,12 @@ public class Checkout extends Activity {
 		total = proceedToCheckout.getStringExtra("total");
 		// Füllen von "Summe" durch Übergabe aus Proceed
 		TextView textTotal = (TextView) findViewById(R.id.total);
-		textTotal.setText(total + "     "+ "(" + CartHelper.getCartList().size() + " Artikel)");
+		List<Product> list = CartHelper.getCartList();
+		int totalQuant = 0;
+		for (Product p : list){
+			totalQuant += CartHelper.getProductQuantity(p);
+		}
+		textTotal.setText(total + "     "+ "(" + totalQuant + " Artikel)");
 	}
 	
 	@Override

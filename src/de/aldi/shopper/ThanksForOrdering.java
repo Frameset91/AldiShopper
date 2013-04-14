@@ -26,7 +26,7 @@ public class ThanksForOrdering extends Activity {
 		
 		AlertDialog.Builder thanks = new AlertDialog.Builder(this);
 		thanks.setTitle("Vielen Dank für Ihre Bestellung!");
-		thanks.setMessage("Sobald der Einkaufswagen für Sie bereit steht, erhalten Sie eine Mitteilung.");
+		thanks.setMessage("Sobald der Einkaufswagen für Sie bereit steht, erhalten Sie eine Email.");
 		thanks.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {}
