@@ -1,13 +1,23 @@
 package de.aldi.shopper;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -18,13 +28,37 @@ public class MainActivity extends Activity {
 	private File dir;	// Unser Dateispeicher im internen Speicher des Handys
 	private File activeCart;	// Unsere Datei, in der aktuelle Warenkörbe gespeichert werden
 	Button btnActive;
+	private Handler mHandler;
+	private ProgressDialog dialog;
 
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Zuerst überprüfen, ob bereits User-Daten hinterlegt wurden
 		userData = this.getSharedPreferences("userData", MODE_PRIVATE);
 		// Wenn noch nichts eingegeben, erst Optionen aufrufen
+		
+
+		SharedPreferences sp = this.getSharedPreferences("cacheData", MODE_PRIVATE);
+		Date tmpLastDate = new Date(sp.getLong("cacheDate", 0));
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(tmpLastDate);
+		cal.add(Calendar.DAY_OF_YEAR, +1);
+		Date lastDate = cal.getTime();
+		
+		if(lastDate.before(new Date())) {
+			dialog = ProgressDialog.show(this, "",
+					"Artikel werden abgerufen!", true);
+			mHandler = new Handler();
+			loadData.start();
+			
+			SharedPreferences.Editor spe = sp.edit();
+			spe.putLong("cacheDate", System.currentTimeMillis());
+			spe.commit();
+		}
+		
 		if (userData.getString("firstname", null) == null){
 			Intent optionsFirst = new Intent(this, Options.class);
 			startActivity(optionsFirst);
@@ -39,7 +73,27 @@ public class MainActivity extends Activity {
 				btnActive.setEnabled(false);
 			}
 		//}
+			
+			
 	}
+	
+	private Thread loadData = new Thread() {
+		public void run() {
+
+			GetDataTest gdt = new GetDataTest();
+			
+			gdt.getData(MainActivity.this);
+			
+			mHandler.post(showUpdate);
+
+		}
+	};
+	
+	private Runnable showUpdate = new Runnable() {
+		public void run() {
+			dialog.dismiss();
+		}
+	};
 	
 	@Override
 	protected void onResume(){

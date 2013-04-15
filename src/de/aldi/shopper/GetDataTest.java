@@ -29,72 +29,40 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.Menu;
 
-public class GetDataTest extends Activity {
+public class GetDataTest extends Thread {
 
-	private Handler mHandler;
-	private ProgressDialog dialog;
+	public void getData(Context con) {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_get_data_test);
+		AngebotsHelper AngebotsHelperObject = new AngebotsHelper(con); //TODO Contexct
+		SQLiteDatabase db = AngebotsHelperObject.getWritableDatabase();
 
-		dialog = ProgressDialog.show(GetDataTest.this, "",
-				"Hier Lädt ein Dings!", true);
-		mHandler = new Handler();
-		loadData.start();
+		try {
+			JSONArray jarr = getJsonArray("http://alexbusch.de/android/connect.php");
 
-	}
+			for (int i = 0; i < jarr.length(); i++) {
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.get_data_test, menu);
-		return true;
-	}
+				JSONObject tmpObj = jarr.getJSONObject(i);
+				String productID = tmpObj.getString("productID");
+				String name = tmpObj.getString("name");
+				String categoryID = tmpObj.getString("categoryID");
+				String cdesc = tmpObj.getString("cdesc");
+				String description = tmpObj.getString("description");
+				String unit = tmpObj.getString("unit");
+				String price = tmpObj.getString("price");
 
-	private Thread loadData = new Thread() {
-		public void run() {
+				AngebotsHelper.insertProducts(db, productID, name,
+						categoryID, cdesc, description, unit, price);
 
-			AngebotsHelper AngebotsHelperObject = new AngebotsHelper(
-					GetDataTest.this);
-			SQLiteDatabase db = AngebotsHelperObject.getWritableDatabase();
-
-			try {
-				JSONArray jarr = getJsonArray("http://alexbusch.de/android/connect.php");
-
-				for (int i = 0; i < jarr.length(); i++) {
-
-					JSONObject tmpObj = jarr.getJSONObject(i);
-					String productID = tmpObj.getString("productID");
-					String name = tmpObj.getString("name");
-					String categoryID = tmpObj.getString("categoryID");
-					String cdesc = tmpObj.getString("cdesc");
-					String description = tmpObj.getString("description");
-					String unit = tmpObj.getString("unit");
-					String price = tmpObj.getString("price");
-
-					AngebotsHelper.insertProducts(db, productID, name,
-							categoryID, cdesc, description, unit, price);
-
-					// Log.i("Debug mich!!! "+i, tmpObj.getString("productID"));
-				}
-
-			} catch (JSONException e) {
-				System.out.println("JSON Exception");
+				// Log.i("Debug mich!!! "+i, tmpObj.getString("productID"));
 			}
 
-			mHandler.post(showUpdate);
-			db.close();
-
+		} catch (JSONException e) {
+			System.out.println("JSON Exception");
 		}
-	};
 
-	private Runnable showUpdate = new Runnable() {
-		public void run() {
-			dialog.dismiss();
-		}
-	};
+		db.close();
+
+	}
 
 	/**
 	 * Lädt anhand einer URL ein JSON Objekt
@@ -184,11 +152,4 @@ public class GetDataTest extends Activity {
 		return sb.toString();
 	} // end method
 
-	public boolean checkNetwork() {
-		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetworkInfo = connectivityManager
-				.getActiveNetworkInfo();
-		return activeNetworkInfo != null
-				&& activeNetworkInfo.isConnectedOrConnecting();
-	}
 }
