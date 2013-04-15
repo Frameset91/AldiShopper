@@ -8,19 +8,19 @@
     <string name="main_active">Aktueller Einkaufswagen</string>
     <string name="main_options">Einstellungen</string>
     <string name="title_activity_newcart">Neuer Einkaufswagen</string>
-    <string name="newcart_hello">Neuen Warenkorb anlegen</string>
+    <string name="newcart_hello">Neuen Einkaufswagen anlegen</string>
     <string name="title_activity_activecart">Aktueller Einkaufswagen</string>
-    <string name="activecart_hello">Aktuellen Warenkorb anzeigen</string>
-    <string name="title_activity_options">Options</string>
+    <string name="activecart_hello">Aktuellen Einkaufswagen anzeigen</string>
+    <string name="title_activity_options">Einstellungen</string>
     <string name="options_hello">Ihre persönlichen Einstellungen</string>
-    <string name="title_activity_manual_list">ManualList</string>
+    <string name="title_activity_manual_list">Manuelle Einkaufsliste anlegen</string>
 
     <string-array name="shopping_list"></string-array>
 
     <string name="main_manuallist">Einkaufsliste anlegen</string>
     <string name="title_activity_get_data_test">GetDataTest</string>
-    <string name="title_activity_proceed_to_checkout">ProceedToCheckout</string>
-    <string name="title_activity_checkout">Checkout</string>
+    <string name="title_activity_proceed_to_checkout">Übersicht</string>
+    <string name="title_activity_checkout">Bestellung absenden</string>
 
     <string-array name="stores">
         <item>Filiale A</item>
@@ -33,8 +33,7 @@
         <item>Filiale H</item>
     </string-array>
 
-    <string name="title_activity_thanks_for_ordering">ThanksForOrdering</string>
-    <string name="title_activity_send_order_via_mail">SendOrderViaMail</string>
+    <string name="title_activity_thanks_for_ordering">Vielen Dank für Ihre Bestellung!</string>
     <string name="btn_save">Speichern</string>
 
 </resources>
