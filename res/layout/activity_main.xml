@@ -13,7 +13,8 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test Titel"
+        android:layout_marginBottom="20dp"
+        android:text="Willkommen im AldiShopper!"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
