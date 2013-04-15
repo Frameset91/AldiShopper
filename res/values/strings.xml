@@ -23,10 +23,10 @@
     <string name="title_activity_checkout">Bestellung absenden</string>
 
     <string-array name="stores">
-        <item>Filiale A</item>
-        <item>Filiale B</item>
-        <item>Filiale C</item>
-        <item>Filiale D</item>
+        <item>68159 Mannheim, E2, 16</item>
+        <item>68161 Mannheim, S6, 29-33</item>
+        <item>68169 Mannheim, Untermühlaustr. 111</item>
+        <item>67059 Ludwigshafen, Otto-Stabel-Str. 3</item>
         <item>Filiale E</item>
         <item>Filiale F</item>
         <item>Filiale G</item>
