@@ -1,12 +1,12 @@
 package de.aldi.shopper;
 
+/**
+ * wird beim Start der App aufgerufen
+ */
+
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,19 +14,16 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-	private SharedPreferences userData; // Zur Speicherung des Vor- und Nachnamens
-	private File dir;	// Unser Dateispeicher im internen Speicher des Handys
-	private File activeCart;	// Unsere Datei, in der aktuelle Warenkörbe gespeichert werden
+	private SharedPreferences userData;	// Zur Speicherung des Vor- und Nachnamens
+	private File dir;					// Speicherort im internen Speicher des Handys
+	private File activeCart;			// Datei, in der der aktuelle Warenkorb gespeichert 
 	Button btnActive;
 	private Handler mHandler;
 	private ProgressDialog dialog;
@@ -36,11 +33,9 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Zuerst überprüfen, ob bereits User-Daten hinterlegt wurden
-		userData = this.getSharedPreferences("userData", MODE_PRIVATE);
-		// Wenn noch nichts eingegeben, erst Optionen aufrufen
 		
-
+		// Überprüfen, ob bereits User-Daten hinterlegt wurden und ob Artikelliste noch aktuell ist, sonst neu abrufen
+		userData = this.getSharedPreferences("userData", MODE_PRIVATE);
 		SharedPreferences sp = this.getSharedPreferences("cacheData", MODE_PRIVATE);
 		Date tmpLastDate = new Date(sp.getLong("cacheDate", 0));
 		Calendar cal = Calendar.getInstance();
@@ -64,17 +59,13 @@ public class MainActivity extends Activity {
 			startActivity(optionsFirst);
 			}
 		// Wenn bereits die Namen gespeichert wurden, Main aufrufen
-		//else {
-			setContentView(R.layout.activity_main);
-			dir = getFilesDir();
-			activeCart = new File(dir, "activeCart");
-			if (activeCart.exists() == false){		// Überprüfe, ob bereits ein aktueller Cart vorhanden ist. Falls nein, Button Aktueller Warenkorb deaktivieren
-				btnActive = (Button) findViewById(R.id.btnActive);
-				btnActive.setEnabled(false);
-			}
-		//}
-			
-			
+		setContentView(R.layout.activity_main);
+		dir = getFilesDir();
+		activeCart = new File(dir, "activeCart");
+		if (activeCart.exists() == false){		// Überprüfe, ob bereits ein aktueller Cart vorhanden ist. Falls nein, Button Aktueller Warenkorb deaktivieren
+			btnActive = (Button) findViewById(R.id.btnActive);
+			btnActive.setEnabled(false);
+		}			
 	}
 	
 	private Thread loadData = new Thread() {
@@ -95,6 +86,10 @@ public class MainActivity extends Activity {
 		}
 	};
 	
+	/**
+	 * bei jedem Aufruf der MainActivity wird überprüft, ob ein aktueller Warenkorb gespeichert ist oder nicht.
+	 * Falls ja, wird der Button "aktueller Warenkorb" deaktiviert.
+	 */
 	@Override
 	protected void onResume(){
 		super.onResume();
@@ -115,10 +110,11 @@ public class MainActivity extends Activity {
 	public void openNewcart(View view) {
 		final Intent newcart = new Intent(this, Newcart.class);
 
-		// Wenn bereits ein aktueller Warenkorb vorhanden ist, wird ein Dialog geöffnet, bei dem der Benutzer den aktuellen Warenkorb löschen kann, oder Abbruch
 		if (activeCart.exists()==false)
 			startActivity(newcart);
 		
+		// Wenn bereits ein aktueller Warenkorb vorhanden ist, wird ein Dialog geöffnet, 
+		// bei dem der Benutzer den aktuellen Warenkorb löschen kann, oder Abbruch
 		else {
 			AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(MainActivity.this);
 			myAlertDialog.setTitle("Hinweis");

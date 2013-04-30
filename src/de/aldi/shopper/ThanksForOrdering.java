@@ -1,3 +1,6 @@
+/**
+ * Abschließende Activity, die den bestellten Warenkorb in einem "Kassenbon" abbildet
+ */
 package de.aldi.shopper;
 
 import java.io.File;
@@ -9,10 +12,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ThanksForOrdering extends Activity {
 
@@ -24,6 +25,7 @@ public class ThanksForOrdering extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_thanks_for_ordering);
 		
+		// Hinweis, dass der Benutzer eine Email erhält, sobald der Wagen fertig ist
 		AlertDialog.Builder thanks = new AlertDialog.Builder(this);
 		thanks.setTitle("Vielen Dank für Ihre Bestellung!");
 		thanks.setMessage("Sobald der Einkaufswagen für Sie bereit steht, erhalten Sie eine Email.");
@@ -58,6 +60,9 @@ public class ThanksForOrdering extends Activity {
 		articles.setText(Integer.toString(articleQuant)+ " Artikel");
 	}
 	
+/**
+ * bei Schließen der Activity, zurück zur MainActivity
+ */
 	@Override
 	public void onBackPressed(){
 		Intent main = new Intent(this, MainActivity.class);

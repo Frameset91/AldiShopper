@@ -1,5 +1,9 @@
 package de.aldi.shopper;
 
+/**
+ * wird benötigt, um die Artikelliste mit Daten zu füllen und einem Layout zuzuweisen
+ */
+
 
 import java.util.List;
 
@@ -42,7 +46,7 @@ public class CartAdapter extends BaseAdapter {
 		else
 			v = inflater.inflate(R.layout.proceed_child, parent, false);
 
-		final Product prod = (Product) getItem(position);
+		final Product prod = (Product) getItem(position);	// für jeden Artikel werden die Views mit Daten gefüllt
 		
 		TextView name = (TextView) v.findViewById(R.id.childname);
 		if (name != null)
@@ -54,8 +58,7 @@ public class CartAdapter extends BaseAdapter {
 		if (price != null)
 			price.setText(prod.getPrice() + " €");
 		TextView quant = (TextView) v.findViewById(R.id.quantity);
-		//if(quant != null)
-			quant.setText("Menge: "+ CartHelper.getProductQuantity(prod));
+		quant.setText("Menge: "+ CartHelper.getProductQuantity(prod));
 
   return v;
  }

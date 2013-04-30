@@ -1,5 +1,9 @@
 package de.aldi.shopper;
 
+/**
+ * Activity für den aktuellen Warenkorb
+ */
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,6 +34,7 @@ public class Activecart extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_activecart);
 		
+		// Auslesen des aktuellen Warenkorbs aus Datei im internen Speicher
 		FileInputStream fileIn = null;
 		ObjectInputStream objectIn = null;
 		try {
@@ -39,7 +44,7 @@ public class Activecart extends Activity {
 		}
 		try {
 			objectIn = new ObjectInputStream(fileIn);
-			loadedCartMap = (Map<Product, Integer>) objectIn.readObject();
+			loadedCartMap = (Map<Product, Integer>) objectIn.readObject();		// gespeicherte Map mit Produkten und Mengen abrufen
 			loadedCartList = new Vector<Product>(loadedCartMap.keySet().size());
 			for (Product p : loadedCartMap.keySet()){
 				int quantity = loadedCartMap.get(p);
@@ -66,7 +71,8 @@ public class Activecart extends Activity {
 		if (cartAdapter != null) {
 			cartAdapter.notifyDataSetChanged();
 		}
-
+		
+		// Berechnen der Gesamtsumme
 		double subTotal = 0;
 		for (Product p : loadedCartList) {
 			int quantity = CartHelper.getProductQuantity(p);
@@ -78,7 +84,10 @@ public class Activecart extends Activity {
 		productPriceTextView.setText(f.format(subTotal) +" €");
 	}
 
-	
+/**
+ * Beim Übergang zur nächsten Activity wird die Gesamtmenge mit intent.putExtra übergeben
+ * und muss daher nicht nochmals berechnet werden	
+ */
 	public void onCheckout(View view) {
 		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
 		String total = productPriceTextView.getText().toString();

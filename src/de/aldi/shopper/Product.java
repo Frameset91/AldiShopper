@@ -13,16 +13,14 @@ public class Product implements Serializable{
 	public String description;
 	public String unit;
 	public double price;
-	//public boolean selected = false;
 
-    public Product( int productID, int categoryID, String name, String description, String unit, double price, boolean selected) {
+    public Product( int productID, int categoryID, String name, String description, String unit, double price) {
 		this.productID = productID;
 		this.categoryID = categoryID;
 		this.name = name;
 		this.description = description;
 		this.unit = unit;
 		this.price = price;
-		//this.selected = selected;
     }
     
     public int getID(){
@@ -44,9 +42,5 @@ public class Product implements Serializable{
     public String getDescription(){
     	return description;
     }
-
-//    public boolean getState() {
-//	    return selected;
-//    }
 
 }

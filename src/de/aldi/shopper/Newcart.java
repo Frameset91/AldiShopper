@@ -1,5 +1,9 @@
 package de.aldi.shopper;
 
+/**
+ * Activity zum Anlegen eines neuen Einkaufswagens
+ */
+
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -7,10 +11,7 @@ import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -21,8 +22,6 @@ public class Newcart extends ExpandableListActivity {
 	ArrayList<ArrayList<Product>> comGroups;
 	ExpandableListView expListCatalog;
 	ArrayList<Product> product;
-
-	// private Button btnDone;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,35 +42,10 @@ public class Newcart extends ExpandableListActivity {
 			Cursor cur2 = AngebotsHelper.getCursorCategoryItem(db, cur.getString(1));
 			cur2.moveToFirst();
 			do {
-				product.add(new Product(cur2.getInt(0), cur2.getInt(1), cur2.getString(2), cur2.getString(3), cur2.getString(4), cur2.getDouble(5), false));
+				product.add(new Product(cur2.getInt(0), cur2.getInt(1), cur2.getString(2), cur2.getString(3), cur2.getString(4), cur2.getDouble(5)));
 			} while (cur2.moveToNext());
 			comGroups.add(product);
 		} while (cur.moveToNext());
-
-		// comGroupsList.add("Käse");
-		// comGroupsList.add("Müsli");
-		// comGroupsList.add("Kaffee");
-		//
-		// comGroups = new ArrayList<ArrayList<Product>>(); //Liste Warengruppe, die Listen mit Produkten speichert
-		//
-		// product = new ArrayList<Product>(); //Produktliste für jeweils eine Warengruppe
-		//
-		// // 1. Kindgruppe
-		// product.add( new Product(1, 1, "ALPENMARK Reibekäse", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet", "200g", 1.19, false));
-		// comGroups.add(product);
-		//
-		// //2. Kindgruppe
-		// product = new ArrayList<Product>();
-		// product.add( new Product(2, 2, "KNUSPERONE Honey Wheat", "Lorem ipsum dolor sit amet", "750g", 1.99, false));
-		// product.add( new Product(3, 3, "KNUSPERONE Nougat Bits", "Lorem ipsum dolor sit amet","500g", 1.99, false));
-		// comGroups.add(product);
-		//
-		// //3. Kindgruppe
-		// product = new ArrayList<Product>();
-		// product.add( new Product(4, 4, "AMAROY Premium Röstkaffee Extra Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.59, false));
-		// product.add( new Product(5, 5, "AMAROY Premium Röstkaffee Entkoffeiniert Kaffee-Pads", "Lorem ipsum dolor sit amet", "144g", 1.99, false));
-		// product.add( new Product(6, 6, "AMAROY Premium Röstkaffee Extra Gemahlen", "Lorem ipsum dolor sit amet","500g", 2.99, false));
-		// comGroups.add(product);
 
 		prodAdapterCatalog = new ProductAdapter(this, comGroupsList, comGroups);
 		setListAdapter(prodAdapterCatalog);
@@ -83,7 +57,7 @@ public class Newcart extends ExpandableListActivity {
 	}
 
 	/**
-	 * Go to next activity: ProceedToCheckout
+	 * Zur nächsten Activity wechseln: ProceedToCheckout
 	 */
 	public void onProceed(View view) {
 		if (CartHelper.getCartList().isEmpty())
@@ -96,13 +70,12 @@ public class Newcart extends ExpandableListActivity {
 	}
 
 	/**
-	 * delete selected quantities if user goes back to MainActivity
+	 * ausgewählte Mengen löschen, wenn der Benutzer zurück zur MainActivity geht
 	 */
 
 	@Override
 	public void onBackPressed() {
 		CartHelper.removeAll();
-		//finish();
 		Intent main = new Intent(this, MainActivity.class);
 		startActivity(main);
 	}

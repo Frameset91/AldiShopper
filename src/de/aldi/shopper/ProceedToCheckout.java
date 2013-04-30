@@ -1,3 +1,8 @@
+/**
+ * Activity zeigt Übersicht über die ausgewählten Artikel.
+ * Der Kunde kann den Einkaufswagen speichern oder fortfahren und die Bestellung absenden
+ */
+
 package de.aldi.shopper;
 
 import java.io.FileNotFoundException;
@@ -12,7 +17,6 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,38 +45,44 @@ public class ProceedToCheckout extends Activity {
 			cartAdapter.notifyDataSetChanged();
 		}
 
+		// Gesamtsumme berechnen
 		double subTotal = 0;
 		for (Product p : cartList) {
 			int quantity = CartHelper.getProductQuantity(p);
 			subTotal += p.price * quantity;
 		}
-
 		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
 		DecimalFormat f = new DecimalFormat("#0.00");
 		productPriceTextView.setText(f.format(subTotal) +" €");
 	}
-
+/**
+ * Fortfahren und Bestellung absenden
+ */
 	public void onCheckout(View view) {
 		TextView productPriceTextView = (TextView) findViewById(R.id.Subtotal);
 		String total = productPriceTextView.getText().toString();
 		Intent checkout = new Intent(this, Checkout.class);
+		// Der nachfolgenden Activity die Gesamtsumme übergeben, damit diese nicht erneut berechnet werden muss
 		checkout.putExtra("total", total);
 		startActivity(checkout);
 	}
 
 	/**
-	 * Save cart for later checkout
+	 * Abspeichern des Einkaufswagens für ein späteres Bestellen -> ActiveCart
 	 */
 	public void onSaveCart(View view) {
 		if (!cartList.isEmpty()) {
+			// Aufrufen der Datei, in der der Wagen gespeichert wird
 			String fileName = "activeCart";
 			FileOutputStream fileOutput = null;
 			ObjectOutputStream objectOutput = null;
+			// neue Map, die die Produkte und die dazugehörigen Mengen speichert
 			Map<Product, Integer> cartQuantity = new HashMap<Product, Integer>();
 			for (Product p : cartList) {
 				int quantity = CartHelper.getProductQuantity(p);
 				cartQuantity.put(p, quantity);
 			}
+			// Schreiben in die Datei mit OutputStream
 			try {
 				fileOutput = this.openFileOutput(fileName, MODE_PRIVATE);
 				objectOutput = new ObjectOutputStream(fileOutput);

@@ -1,6 +1,7 @@
+/**
+ * Klasse zum Füllen des "Kassenbons" mit Daten
+ */
 package de.aldi.shopper;
-
-
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -45,7 +46,7 @@ public class ThankYouAdapter extends BaseAdapter {
 		else
 			v = inflater.inflate(R.layout.thankyou_child, parent, false);
 
-		final Product prod = (Product) getItem(position);
+		final Product prod = (Product) getItem(position); // jedes Produkt im bestellen Warenkorb mit Daten füllen
 		
 		TextView name = (TextView) v.findViewById(R.id.product);
 		if (name != null)

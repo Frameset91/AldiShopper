@@ -1,14 +1,15 @@
 package de.aldi.shopper;
 
+/**
+ * Zum Überprüfen der Benutzereingaben und zum endgültigen Abschicken der Bestellung
+ */
+
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -26,9 +27,9 @@ public class Checkout extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
+		// Füllen von "Summe" durch Übergabe des Wertes aus Proceed
 		Intent proceedToCheckout = getIntent();
 		total = proceedToCheckout.getStringExtra("total");
-		// Füllen von "Summe" durch Übergabe aus Proceed
 		TextView textTotal = (TextView) findViewById(R.id.total);
 		List<Product> list = CartHelper.getCartList();
 		int totalQuant = 0;
@@ -59,6 +60,9 @@ public class Checkout extends Activity {
 		store.setSelection(pos);
 	}
 	
+	/**
+	 * Absenden der Bestellung
+	 */
 	public void onSendOrder(View view){
 		userData = this.getSharedPreferences("userData", MODE_PRIVATE);
 		SharedPreferences.Editor userDataEditor = userData.edit();
@@ -66,9 +70,12 @@ public class Checkout extends Activity {
 		String chosenStore = store.getSelectedItem().toString();
 		userDataEditor.putString("store", chosenStore);
 		userDataEditor.apply();
-
+		
+		// Öffnen des Auswahldialogs für das Absenden der Email
+		// und vorbereiten der Email (Artikelliste, Menge, Filiale, Name)
 		Intent email = new Intent(Intent.ACTION_SEND);
 		email.setType("message/rfc822");
+		//Beispiel-Empfänger; Für jede Filiale wird eine Email-Adresse hinterlegt, die hier eingefügt wird
 		email.putExtra(Intent.EXTRA_EMAIL, new String[]{"nora.herentrey@googlemail.com"});
 		email.putExtra(Intent.EXTRA_SUBJECT, "Bestellung an Filiale: " + chosenStore);		
 		List<Product> orderList = CartHelper.getCartList();
@@ -84,10 +91,6 @@ public class Checkout extends Activity {
 		Intent eStart = Intent.createChooser(email, "Senden");
 		eStart.putExtra("list", email);
 		startActivityForResult(eStart, ACTIVITY_ID);
-		
-		
-		
-		
 	}
 	
 	public void onEditOptions(View view){
@@ -95,9 +98,8 @@ public class Checkout extends Activity {
 		startActivity(openOp);
 	} 
 	
+	// Wenn der Email-Dialog geschlossen wird, wird die entgültige Activity gestartet
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.i("DEBUG:", requestCode +" - "+ resultCode);
-		
 		final Intent thankYou = new Intent(this, ThanksForOrdering.class);
 		thankYou.putExtra("total", total);
 		startActivity(thankYou);

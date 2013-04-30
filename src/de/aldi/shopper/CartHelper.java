@@ -1,5 +1,6 @@
 /**
- * speichert die ausgewählten Artikel, die in "Proceed" angezeigt werden sollen
+ * Helper-Klasse, um den ausgewählten Artikeln die zugehörige Menge zuzuweisen
+ * und diese abzuspeichern
  */
 package de.aldi.shopper;
 
@@ -10,8 +11,8 @@ import java.util.Vector;
 
 public class CartHelper {
 	
+	// Artikel und zugehörige Menge werden in einer Map gespeichert
     private static Map<Product, CartEntry> cartMap = new HashMap<Product, CartEntry>();
-    
     
 	public static void setQuantity(Product product, int quantity){
 		CartEntry curEntry = cartMap.get(product);

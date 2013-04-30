@@ -5,14 +5,10 @@
 package de.aldi.shopper;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
@@ -70,7 +65,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 		else
 			v = inflater.inflate(R.layout.explist_child, parent, false);
 
-		final Product prod = (Product) getChild(groupPosition, childPosition);
+		final Product prod = (Product) getChild(groupPosition, childPosition); // Für jedes Produkt werden die Daten geholt
 		
 		TextView name = (TextView) v.findViewById(R.id.childname);
 		if (name != null)
@@ -92,8 +87,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 			numPickQuantity.setValue( loadedCart.get(prod.getID()) );
 		else numPickQuantity.setValue(0);
 		
-		
-		
+		// NumberPicker zum Auswählen der Mengen und Speichern in CartHelper
 		numPickQuantity.setOnValueChangedListener(new OnValueChangeListener() {			
 			@Override
 			public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -118,7 +112,7 @@ public class ProductAdapter extends BaseExpandableListAdapter {
 	}
 	
 	public long getGroupId(int groupPosition) {
-		return (long) (groupPosition * 50); // To be consistent with getChildId
+		return (long) (groupPosition * 50);
 	}
 
 	public View getGroupView(int groupPosition, boolean isExpanded,

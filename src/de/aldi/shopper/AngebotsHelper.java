@@ -43,9 +43,7 @@ public class AngebotsHelper extends SQLiteOpenHelper{
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {		
 	}
 	
 	public static long insertProducts(SQLiteDatabase db, final String productID, final String name, final String categoryID, final String cdesc, final String description, final String unit, final String price) {
