@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class AngebotsHelper extends SQLiteOpenHelper{
 
+	/*
+	 * Festlegen der einzelenen Konstanten, welche im weiteren Verlauf genutzt werden.
+	 */
+	
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "Waren.db";
 	
@@ -31,20 +35,27 @@ public class AngebotsHelper extends SQLiteOpenHelper{
 				PRODUCT_PRICE + " REAL);";
 				
 				
-
+	//Essenzieller Konstruktor ddes SQLiteOpenHelpers
+	
     public AngebotsHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    //Erstellen der Tabelle beim ersten Aufruf.
+    
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 	db.execSQL(TABLE_CREATE_PRODUCTS);	
 		
 	}
 
+	//Notwendige Methode des SQLiteOpenHelpers, wird aktuell nicht benötigt.
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {		
 	}
+	
+	//Methode zum Einfügen der Produkte aus dem Internet in die SQLite DB
 	
 	public static long insertProducts(SQLiteDatabase db, final String productID, final String name, final String categoryID, final String cdesc, final String description, final String unit, final String price) {
 		ContentValues values = new ContentValues();
@@ -58,9 +69,19 @@ public class AngebotsHelper extends SQLiteOpenHelper{
 		return (db.insert(TABLE_NAME_PRODUCTS, null, values));
 	}
 	
+	/*
+	 * Cursor zur Datenabfrage.
+	 * Kategorienabfrage zur Erstellung der DropDown Kategorieauswahl.
+	 */
+	
 	public static Cursor getCursorCategory(SQLiteDatabase db) {
 		return db.query(true, TABLE_NAME_PRODUCTS, new String[] {PRODUCT_CATEGORY_NAME, PRODUCT_CATEGORY_ID}, null, null, null, null, null, null);
 	}
+	
+	/*
+	 * Cursor zur Datenabfrage.
+	 * Abfragen der benötigten Werte.
+	 */
 	
 	public static Cursor getCursorCategoryItem(SQLiteDatabase db, String categoryID) {
 		final String selection = PRODUCT_CATEGORY_ID + "=?";

@@ -31,10 +31,11 @@ public class Newcart extends ExpandableListActivity {
 		// Liste für Warengruppen
 		comGroupsList = new ArrayList<String>();
 		comGroups = new ArrayList<ArrayList<Product>>(); // Liste Warengruppe, die Listen mit Produkten speichert
-		SQLiteDatabase db = new AngebotsHelper(this).getReadableDatabase();
+		SQLiteDatabase db = new AngebotsHelper(this).getReadableDatabase(); //Lesezugriff auf die Datenbank
 
-		Cursor cur = AngebotsHelper.getCursorCategory(db);
+		Cursor cur = AngebotsHelper.getCursorCategory(db);//Cursor erzeugen zur Datenabfrage
 
+		//Cursor läuft immer solange bis er am Ende seiner Liste ist. Einzelne Cursor für die unterschiedlichen Abfragen. Zahl entspricht Spalte.
 		cur.moveToFirst();
 		do {
 			comGroupsList.add(cur.getString(0));

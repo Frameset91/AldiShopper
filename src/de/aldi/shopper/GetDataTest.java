@@ -24,9 +24,12 @@ public class GetDataTest extends Thread {
 
 	public void getData(Context con) {
 
-		AngebotsHelper AngebotsHelperObject = new AngebotsHelper(con); //TODO Contexct
+		//Erstellen der Notwendigen Objekte zum Daten schreiben
+		AngebotsHelper AngebotsHelperObject = new AngebotsHelper(con);
 		SQLiteDatabase db = AngebotsHelperObject.getWritableDatabase();
 
+		//Abfrage des JSON Arrays der Ausgabe der Online Datenbank und Zuweisung der einzelnen Elemente in Strings.
+		
 		try {
 			JSONArray jarr = getJsonArray("http://alexbusch.de/android/connect.php");
 
@@ -44,7 +47,6 @@ public class GetDataTest extends Thread {
 				AngebotsHelper.insertProducts(db, productID, name,
 						categoryID, cdesc, description, unit, price);
 
-				// Log.i("Debug mich!!! "+i, tmpObj.getString("productID"));
 			}
 
 		} catch (JSONException e) {
@@ -55,36 +57,24 @@ public class GetDataTest extends Thread {
 
 	}
 
-	/**
-	 * Lädt anhand einer URL ein JSON Objekt
-	 * 
-	 * @param URL
-	 *            URL als String die geladen werden soll
-	 * @return JSONObject oder NULL wenn es einen Fehler gibt
-	 */
-	private JSONArray getJsonArray(String URL) {
-		// Init
+	
+	 // Lädt anhand einer URL ein JSON Objekt
+		private JSONArray getJsonArray(String URL) {
+		// Initialisierung
 		String JsonResponse = connect(URL, null);
 		JSONArray json = null;
 
 		try {
-			json = (new JSONArray(JsonResponse)); // Convert String to JSON
-													// (screws Ordering of JSON)
+			json = (new JSONArray(JsonResponse)); // Konvertiert String nach JSON
+													
 		} catch (Exception e) {
-			// Log.e("##############################################",
-			// "UNIverse getJson Exception: "+URL);
-		}
+					}
 
 		return json;
 	}
 
-	/**
-	 * Stelle eine HTTP Verbindung zu einer URL her und gibt den Inhalt zurück
-	 * 
-	 * @param url
-	 *            Die URL
-	 * @return
-	 */
+	
+	 //Stellt eine HTTP Verbindung zu einer URL her und gibt den Inhalt zurück.
 	public static String connect(String url, List<NameValuePair> postParams) {
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 
@@ -105,23 +95,15 @@ public class GetDataTest extends Thread {
 				return result;
 			}
 		} catch (ClientProtocolException e) {
-			// Log.e("##############################################",
-			// "UNIverse exception2: "+url);
+		
 		} catch (IOException e) {
-			// Log.e("##############################################",
-			// "UNIverse exception3: "+url);
+		
 		}
 		return null;
 	}
 
-	/**
-	 * Wandelt einen InputStream in einen String um. Diese Funktion versucht den
-	 * Stream !komplett! auszulesen. Daher kann es nur für Datei oder URLs
-	 * auslesen verwendet werden.
-	 * 
-	 * @param is
-	 * @return
-	 */
+	
+	 //Wandelt den InputStream in einen String um.
 	public static String convertStreamToString(InputStream is) {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
@@ -141,6 +123,6 @@ public class GetDataTest extends Thread {
 			}
 		}
 		return sb.toString();
-	} // end method
+	}
 
 }
