@@ -151,9 +151,10 @@ public class MainActivity extends Activity {
 		startActivity(manuallist);
 	}
 
-	public void openData(View view) {
-		Intent data = new Intent(this, GetDataTest.class);
-		startActivity(data);
-	}
+	//Testabruf für Daten
+//	public void openData(View view) {
+//		Intent data = new Intent(this, GetDataTest.class);
+//		startActivity(data);
+//	}
 
 }
